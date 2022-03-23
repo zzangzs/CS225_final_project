@@ -12,7 +12,7 @@
 1. **Work Distribution** 
 
 2. **Time Commitment** 
-dwfhb
+
 3. **Conflict Resolution** 
 
 ## Signatures
