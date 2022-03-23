@@ -21,3 +21,4 @@ All conflicts within the team will be decided by voting(and fighting).
 ## Signatures
 Nan Kang(nankang2)
 Zisu Jiang(zisuj2)
+Yixiao Fang(yixiaof2)
