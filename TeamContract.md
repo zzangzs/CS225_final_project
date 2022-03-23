@@ -17,7 +17,7 @@ We will assign work during weekly meeting. Everyone will be assigned a part of w
 In our group, each member is expected to commit 3-6 hours per week on the project excluding the group meeting time. Our group meeting is expected to last for 3 and half hours, and we will be discussing the difficulties and unexpected circumstances we encountered during this week. If one of our group members is having difficulties finishing his/her assigned task for the upcoming week, we will work together to decide the time commitment based on the conditions. It’s the group’s responsibility to keep track of the time and make sure every task is finished before the deadline. 
 
 3. **Conflict Resolution** 
-All conflicts within the team will be decided by voting(and fighting).
+All conflicts within the team will be decided by voting~~(and fighting)~~.
 ## Signatures
 Nan Kang(nankang2)
 Zisu Jiang(zisuj2)
