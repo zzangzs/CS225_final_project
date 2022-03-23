@@ -20,4 +20,4 @@ In our group, each member is expected to commit 3-6 hours per week on the projec
 All conflicts within the team will be decided by voting(and fighting).
 ## Signatures
 Nan Kang(nankang2)
-
+Zisu Jiang(zisuj2)
