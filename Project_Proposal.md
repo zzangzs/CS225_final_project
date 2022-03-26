@@ -55,10 +55,10 @@ Expected time period and DDL: Apr.25 - May.1 (1 week)
 
 - Logistics and Others:
     - Ultimate README.md:
-        Expected time period and DDL: May.1 - May.5 (5 days)
+        - Expected time period and DDL: May.1 - May.5 (5 days)
     - Written Report (results.md):
-        Expected time period and DDL: Analyze the output and correctness of each algorithm immediately after it is completed.
+        - Expected time period and DDL: Analyze the output and correctness of each algorithm immediately after it is completed.
     - Preparation of Final Presentation:
-        Expected time period and DDL: May.1 - May.5 (5 days)
+        - Expected time period and DDL: May.1 - May.5 (5 days)
 
 
