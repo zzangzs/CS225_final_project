@@ -39,19 +39,19 @@ Purpose: Find the most popular airports, which means those airports have the mos
 
 4. **Timeline:**
 - Code Implementation:
-Task 1: Helper Functions: eg. convert airport location(latitude, longitude) to xyz coordinate
-Expected time period and DDL: Mar.26 - Apr.3 (1 week)
-Task 2: Parse data and build data structures
-Expected time period and DDL: Mar.26 - Apr. 3 (1 week)
-Task 3: Implement DFS
- -Use DFS to print a part of data to check data storage
-Expected time period and DDL: Apr.4 - Apr.10 (1 week)
-Task 4: Dijkstra's algorithm
-Expected time period and DDL: Apr.11 - Apr.24 (2 weeks)
-Task 5: PageRank
-Expected time period and DDL: Apr.11 - Apr.24 (2 weeks)
-Task 6: Visualization
-Expected time period and DDL: Apr.25 - May.1 (1 week)
+    - Task 1: Helper Functions: eg. convert airport location(latitude, longitude) to xyz coordinate
+        - Expected time period and DDL: Mar.26 - Apr.3 (1 week)
+    - Task 2: Parse data and build data structures
+        - Expected time period and DDL: Mar.26 - Apr. 3 (1 week)
+    - Task 3: Implement DFS
+        - Use DFS to print a part of data to check data storage
+        - Expected time period and DDL: Apr.4 - Apr.10 (1 week)
+    - Task 4: Dijkstra's algorithm
+        - Expected time period and DDL: Apr.11 - Apr.24 (2 weeks)
+    - Task 5: PageRank
+        - Expected time period and DDL: Apr.11 - Apr.24 (2 weeks)
+    - Task 6: Visualization
+        - Expected time period and DDL: Apr.25 - May.1 (1 week)
 
 - Logistics and Others:
     - Ultimate README.md:
