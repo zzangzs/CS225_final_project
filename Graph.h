@@ -32,10 +32,11 @@ class Graph
         vector<vector<double>> adj_; // adjacency list
         map<Point,Airport> map_; // used in KDTree
 
-    public:
-        
-
+    public:   
+        // default constructor
         Graph();
+
+        // customized constructor
         Graph(const vector<Edge> & edges, const vector<Airport> & airports);
 
         Airport & locateAirport(const Point & point) const;
