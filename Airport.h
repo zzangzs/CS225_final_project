@@ -1,24 +1,21 @@
-/**
- * @file Airport.h
- *
- * @author DHREV
- */
 #pragma once
-
-#include <string>;
-
-using std::string;
+#include <string>
+using namespace std;
 
 class Airport
 {
     private:
-        string Name_;
-        unsigned ID_;
-        
-        //may be useless
-        double Latitude_;
-        double Longitude_;
+        string name_;
+        unsigned int id_;
+        double latitude_;
+        double longitude_;
     
     public:
         Airport();
+        Airport(string name, unsigned int id, double latitude, double longitude);
+        ~Airport();
+        void setName(string name);
+        void setId(unsigned int id);
+        void setLatitude(double latitude);
+        void setLongitude(double longitude);
 };
