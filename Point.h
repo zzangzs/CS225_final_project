@@ -1,11 +1,15 @@
-// "Point.h"
+/**
+ * @file Point.h
+ *
+ * @author DHREV
+ */
 
 class Point
 {
     private:
-        int x;
-        int y;
-        int z;
+        double x;
+        double y;
+        double z;
 
     public:
         Point();
