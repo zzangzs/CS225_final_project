@@ -1,9 +1,9 @@
 # Final Project Proposal
 
-1. **Leading Question** 
+1. **Leading Question:** 
 The OpenFlight dataset is the dataset we decide to use for our project. Given some useful information about airports, and routes, the primary problem we want to tackle is the optimal flight route a person can take between any two given points on Earth. Here, we define optimal to be taking the shortest travel time dependent of the total distance and the number of stops. This is a function that has been achieved by many travel planning applications and digital maps, and the principal goal is to make people’s travel more convenient. 
 
-2. **Dataset Acquisition and Processing**
+2. **Dataset Acquisition and Processing:**
 - Data format: The two major databases we consider using are the airport database and route database. Each database is divided into lines of string, and each line contains multiple pieces of information separated by commas in a specific order. 
     Summary of useful information for now:
     Airport: ID, Name, City, Country, Latitude, Longitude
@@ -20,25 +20,25 @@ Use KDTree to store the airport’s location information, i.e., Point.
 
 Estimate of the total storage costs: since we would use a 2D vector, the estimated storage would be O(n^2) given n entries in the airport dataset.
 
-3. **Graph Algorithms**
-Graph Traversal Algorithms: DFS
+3. **Graph Algorithms:**
+- Graph Traversal Algorithms: DFS
 Function Inputs: Base PNG graph, start vertex.
 Function Outputs: void
 Function Efficiency: O(n) because all traversal takes O(n) time
 Purpose: We use DFS to traverse through the graph of airports. We want to map all the locations of the airports and routes among them on the base graph by visiting all the vertices and edges. Since we want to map all the edges too, DFS is the appropriate traversal algorithm.
-Covered Algorithm: Dijkstra's algorithm
+- Covered Algorithm: Dijkstra's algorithm
 Function Inputs: Departure airport coordinates, graph
 Function Outputs: Arrival airport coordinates
 Function Efficiency: O(v^2), which v is the number of vertices
 Purpose: This algorithm finds the nearest path between two airports. This includes all the edges and airports connected between them since it’s possible for two airports not having a direct connection.
-Complex or Uncovered: PageRank
+- Complex or Uncovered: PageRank
 Function Inputs: Directed graph
 Function Outputs: Weight of airports
 Function Efficiency: O(n+m), n is the number of nodes(airports), m is the number of edges(routes)
 Purpose: Find the most popular airports, which means those airports have the most departure/arrival routes. We want to use this algorithm to label more significant airports compared to less significant airports.
 
-4. **Timeline**
-Code Implementation:
+4. **Timeline:**
+- Code Implementation:
 Task 1: Helper Functions: eg. convert airport location(latitude, longitude) to xyz coordinate
 Expected time period and DDL: Mar.26 - Apr.3 (1 week)
 Task 2: Parse data and build data structures
@@ -53,7 +53,7 @@ Expected time period and DDL: Apr.11 - Apr.24 (2 weeks)
 Task 6: Visualization
 Expected time period and DDL: Apr.25 - May.1 (1 week)
 
-Logistics and Others:
+- Logistics and Others:
 Ultimate README.md:
 Expected time period and DDL: May.1 - May.5 (5 days)
 Written Report (results.md):
