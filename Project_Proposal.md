@@ -1,17 +1,16 @@
 # Final Project Proposal
 
-## Communication
 1. **Leading Question** 
 The OpenFlight dataset is the dataset we decide to use for our project. Given some useful information about airports, and routes, the primary problem we want to tackle is the optimal flight route a person can take between any two given points on Earth. Here, we define optimal to be taking the shortest travel time dependent of the total distance and the number of stops. This is a function that has been achieved by many travel planning applications and digital maps, and the principal goal is to make people’s travel more convenient. 
 
 2. **Dataset Acquisition and Processing**
-Data format: The two major databases we consider using are the airport database and route database. Each database is divided into lines of string, and each line contains multiple pieces of information separated by commas in a specific order. 
-Summary of useful information for now:
-Airport: ID, Name, City, Country, Latitude, Longitude
-Route: Source Airport ID, Destination Airport ID, Stops
+- Data format: The two major databases we consider using are the airport database and route database. Each database is divided into lines of string, and each line contains multiple pieces of information separated by commas in a specific order. 
+    Summary of useful information for now:
+    Airport: ID, Name, City, Country, Latitude, Longitude
+    Route: Source Airport ID, Destination Airport ID, Stops
 We plan to set each database in a single .txt file and read the two files. When reading the file, needed information will be stored. We decided to use the full database, which contains 14110 airports and 67663 airline routes. 
-Data Correction: As described above, we will parse each line in the database and store the data in the way described below. We will check if airport’s latitude and longitude are out of range (ie. range for latitude [-90, 90], range for longitude[0, 360)) whenever the data is read initially from the file. 
-Data Storage:
+- Data Correction: As described above, we will parse each line in the database and store the data in the way described below. We will check if airport’s latitude and longitude are out of range (ie. range for latitude [-90, 90], range for longitude[0, 360)) whenever the data is read initially from the file. 
+- Data Storage:
 Use objects created from the class Point<3> to store the coordinate (x, y, z) of each airport, where (x, y, z) is converted from Latitude and Longitude.
 Use vectors to store all the Point objects.
 Use objects created from the class Airport to store information of each airport, including Name, ID, and Latitude, Longitude.
