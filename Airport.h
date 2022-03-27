@@ -18,4 +18,8 @@ class Airport
         void setId(unsigned int id);
         void setLatitude(double latitude);
         void setLongitude(double longitude);
+        string getName() const;
+        unsigned getID() const;
+        double getLatitude() const;
+        double getLongitude() const;
 };
