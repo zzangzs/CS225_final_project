@@ -39,7 +39,7 @@ void Airport::setCountry(string country)
     country_ = country;
 }
 
-void setCity(string city)
+void Airport::setCity(string city)
 {
     city_ = city;
 }
@@ -64,17 +64,17 @@ string Airport::getName() const
     return name_;
 }
 
-string getCountry() const
+string Airport::getCountry() const
 {
     return country_;
 }
 
-string getCity() const
+string Airport::getCity() const
 {
     return city_;
 }
 
-unsigned Airport::getID() const
+unsigned int Airport::getId() const
 {
     return id_;
 }
