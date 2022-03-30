@@ -44,6 +44,16 @@ void Airport::setCity(string city)
     city_ = city;
 }
 
+void Airport::setIATA(string iata)
+{
+    iata_ = iata;
+}
+
+void Airport::setICAO(string icao)
+{
+    icao_ = icao;
+}
+
 void Airport::setId(unsigned int id)
 {
     id_ = id;
@@ -72,6 +82,16 @@ string Airport::getCountry() const
 string Airport::getCity() const
 {
     return city_;
+}
+
+string Airport::getIATA() const;
+{
+    return iata_;
+}
+
+string Airport::getICAO() const;
+{
+    return icao_;
 }
 
 unsigned int Airport::getId() const
