@@ -84,17 +84,17 @@ string Airport::getCity() const
     return city_;
 }
 
-string Airport::getIATA() const;
+string Airport::getIATA() const
 {
     return iata_;
 }
 
-string Airport::getICAO() const;
+string Airport::getICAO() const
 {
     return icao_;
 }
 
-unsigned int Airport::getId() const
+unsigned int Airport::getID() const
 {
     return id_;
 }
