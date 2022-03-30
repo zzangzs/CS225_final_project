@@ -1,5 +1,5 @@
 // main.cpp
-#include "Readfile.cpp"
+#include "Readfile.h"
 
 #include <iostream>
 #include <fstream>
