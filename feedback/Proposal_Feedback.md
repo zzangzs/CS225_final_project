@@ -1,5 +1,7 @@
 ### Grade
-Sophisticated (90%)
+~~Competent (90%)~~ Sophisticated (100%)
+
+I have changed my grade here as the issues seem very minor and the group has a clear idea of how to move forward.
 
 ### Comments
 A well-written proposal overall, with a few minor issues I have pointed out below.
