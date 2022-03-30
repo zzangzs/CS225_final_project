@@ -11,10 +11,13 @@ using std::pair;
 
 Graph::Graph(){
 
+
 }
 
 Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
 {
+    airports_ptr_ = &airports;
+
     unsigned numAirports = airports.size();
     unsigned numRoutes = routes.size();
 

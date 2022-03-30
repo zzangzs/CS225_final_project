@@ -1,5 +1,4 @@
 #include "Airport.h"
-#include "Airport.cpp"
 #include "Route.h"
 
 #include <string>

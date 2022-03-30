@@ -29,6 +29,8 @@ class Graph
         // necessary? may be duplicate with adj_
         map<pair<unsigned,unsigned>,double> routesMap_; 
 
+        const vector<Airport>* airports_ptr_;
+
     public:   
         // default constructor
         Graph();
