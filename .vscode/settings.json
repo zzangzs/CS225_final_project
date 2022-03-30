@@ -7,6 +7,9 @@
         "__bit_reference": "cpp",
         "map": "cpp",
         "set": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "functional": "cpp",
+        "limits": "cpp",
+        "type_traits": "cpp"
     }
 }

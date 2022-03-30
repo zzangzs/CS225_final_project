@@ -1,7 +1,7 @@
 /**
  * @file Graph.hs
  *
- * @author DHREV
+ * @author DHREV: ZJ
  */
 
 #include "Graph.h"
@@ -20,20 +20,7 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
 
     visited_.resize(numAirports,false);
     adj_.resize(numAirports,vector<double>(numAirports,0));
-    points_.reserve(numAirports);
-
-    // build points
-    for (const Airport & airport : airports)
-    {
-        points_.push_back(Point(airport.getLatitude(), airport.getLongitude()));
-    }
-    
-    // build map(points,airports)
-    for (size_t i = 0; i < numAirports; i++)
-    {
-        map_[points_[i]] = airports[i];
-    }
-    
+  
     //build routesMap from routes
     for (const Route & route : routes)
     {
@@ -58,10 +45,6 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
         
     }
      
-
-}
-
-Airport & Graph::locateAirport(double latitude, double longitude) const{
 
 }
 
