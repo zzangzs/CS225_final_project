@@ -6,7 +6,7 @@
 
 struct Route
 {
-    unsigned startID;
-    unsigned endID;
+    unsigned int startID;
+    unsigned int endID;
     double dist;
 };
