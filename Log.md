@@ -5,12 +5,6 @@
 3. Axis: x- axis: for Earth's center to (latitute 0, longitude 90E); y- axis: for Earth's center to (latitute 90N, longitude 0); z- axis: for Earth's center to (latitute 0, longitude 0) 
 4. use "g++ testPoint.cpp -std=c++11" to complie, use "./a.out" to see the output
 
-
-
-
-
-
-
 ### 2022/4/1 Week 1
 author: ZJ
 
