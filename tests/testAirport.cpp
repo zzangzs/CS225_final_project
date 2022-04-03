@@ -4,10 +4,16 @@
 
 #include "../Airport.h"
 
+bool compareDouble(double a, double b){
+    const double eps = 1e-8;//error for comparing doubles
+    if (abs(a-b) <= eps) return true;
+    else return false;
+}
+
 //set airport by default constructor
 TEST_CASE("empty airport", "[weight=10][part1]")
 {
-    Airport airport();
+    Airport airport = Airport();
 
     REQUIRE("" == airport.getName());
 	REQUIRE("" == airport.getCountry());
@@ -22,18 +28,16 @@ TEST_CASE("empty airport", "[weight=10][part1]")
 //set airport by constructor
 TEST_CASE("airport 1 ", "[weight=10][part1]")
 {
-    Airport airport("Ísafjörður Airport","Iceland", "Isafjordur",0,66.05809783935547,-23.135299682617188);
+    Airport airport("Ísafjörður Airport","Iceland", "Isafjordur", 0, 66.05809783935547,-23.135299682617188);
     airport.setIATA("IFJ");
     airport.setICAO("BIIS");
-
-    const double eps = 1e-8;//error for comparing doubles
 
     REQUIRE("Ísafjörður Airport" == airport.getName());
 	REQUIRE("Iceland" == airport.getCountry());
     REQUIRE("Isafjordur" == airport.getCity());
     REQUIRE(0 == airport.getID());
-    REQUIRE(eps >= abs(airport.getLatitude() - 66.05809783935547);
-    REQUIRE(eps >= abs(airport.getLongitude() + 23.135299682617188);
+    REQUIRE(compareDouble(airport.getLatitude(), 66.05809783935547) == true);
+    REQUIRE(compareDouble(airport.getLongitude(), -23.135299682617188) == true);
     REQUIRE("IFJ" == airport.getIATA());
     REQUIRE("BIIS" == airport.getICAO());
 }
@@ -41,7 +45,7 @@ TEST_CASE("airport 1 ", "[weight=10][part1]")
 //set airport by default constructor and then set its value
 TEST_CASE("airport 2 ", "[weight=10][part1]")
 {
-    Airport airport();
+    Airport airport = Airport();
     airport.setName("St. Anthony Airport");
     airport.setCountry("Canada");
     airport.setCity("St. Anthony");
@@ -51,14 +55,12 @@ TEST_CASE("airport 2 ", "[weight=10][part1]")
     airport.setIATA("YAY");
     airport.setICAO("CYAY");
 
-    const double eps = 1e-8;//error for comparing doubles
-
     REQUIRE("St. Anthony Airport" == airport.getName());
 	REQUIRE("Canada" == airport.getCountry());
     REQUIRE("St. Anthony" == airport.getCity());
     REQUIRE(1 == airport.getID());
-    REQUIRE(eps >= abs(airport.getLatitude() - 51.3918991089);
-    REQUIRE(eps >= abs(airport.getLongitude() + 56.083099365200006);
+    REQUIRE(compareDouble(airport.getLatitude(), 51.3918991089) == true);
+    REQUIRE(compareDouble(airport.getLongitude(), -56.083099365200006) == true);
     REQUIRE("YAY" == airport.getIATA());
     REQUIRE("CYAY" == airport.getICAO());
 }
@@ -86,8 +88,8 @@ TEST_CASE("airport 3 ", "[weight=10][part1]")
 	REQUIRE("Canada" == airport.getCountry());
     REQUIRE("St. Anthony" == airport.getCity());
     REQUIRE(1 == airport.getID());
-    REQUIRE(eps >= abs(airport.getLatitude() - 51.3918991089);
-    REQUIRE(eps >= abs(airport.getLongitude() + 56.083099365200006);
+    REQUIRE(compareDouble(airport.getLatitude(), 51.3918991089) == true);
+    REQUIRE(compareDouble(airport.getLongitude(), -56.083099365200006) == true);
     REQUIRE("YAY" == airport.getIATA());
     REQUIRE("CYAY" == airport.getICAO());
 }
