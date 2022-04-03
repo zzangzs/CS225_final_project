@@ -72,7 +72,6 @@ TEST_CASE("airport 3 ", "[weight=10][part1]")
     airport.setIATA("TLM");
     airport.setICAO("DAON");
 
-
     airport.setName("St. Anthony Airport");
     airport.setCountry("Canada");
     airport.setCity("St. Anthony");
@@ -81,8 +80,6 @@ TEST_CASE("airport 3 ", "[weight=10][part1]")
     airport.setLongitude(-56.083099365200006);
     airport.setIATA("YAY");
     airport.setICAO("CYAY");
-
-    const double eps = 1e-8;//error for comparing doubles
 
     REQUIRE("St. Anthony Airport" == airport.getName());
 	REQUIRE("Canada" == airport.getCountry());
