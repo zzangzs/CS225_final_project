@@ -16,6 +16,7 @@ int main()
     // Initialize the routes vector
     vector<Route> routes;
 
+    string filename = "airport_test.txt";
     Readfile read = Readfile();
     read.readfile_airport(airport);
     read.readfile_routes(routes);
