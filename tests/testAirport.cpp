@@ -1,6 +1,8 @@
+#include "../cs225/catch/catch.hpp"
+
 #include <cmath>
 
-#include "Airport.h"
+#include "../Airport.h"
 
 //set airport by default constructor
 TEST_CASE("empty airport", "[weight=10][part1]")
