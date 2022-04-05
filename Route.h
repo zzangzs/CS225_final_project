@@ -3,6 +3,7 @@
  *
  * @author DHREV
  */
+#pragma once
 
 struct Route
 {
