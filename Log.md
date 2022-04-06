@@ -37,3 +37,19 @@ We did encounter several problems, such as which containers to store necessary d
 1. Write bases test cases and makefile.
 2. Get started with BFS to print the graph.
 3. Modify existed classes if possible.
+
+## 2022/4/8 Week 2
+author: YL
+
+### What goals you had set for the week and whether they were accomplished or not
+
+
+### What specific tasks each member of your team accomplished in the week
+
+
+### What problems you encountered (if any) that prevented you from meeting your goals
+
+
+### What you plan to accomplish next week
+
+

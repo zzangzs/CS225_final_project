@@ -14,9 +14,9 @@ Graph::Graph(){
 
 }
 
-Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
+Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports) : edges_(routes), vertices_(airports)
 {
-    airports_ptr_ = &airports;
+    //airports_ptr_ = &airports;
 
     unsigned numAirports = airports.size();
     unsigned numRoutes = routes.size();
