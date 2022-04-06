@@ -13,7 +13,7 @@ Airport::Airport()
     longitude_ = 0;
 }
 
-Airport::Airport(string name, string country, string city, unsigned int id, double latitude, double longitude)
+Airport::Airport(string name, string country, string city, unsigned int id, long double latitude, long double longitude)
 {
     name_ = name;
     country_ = country;
@@ -58,12 +58,12 @@ void Airport::setId(unsigned int id)
     id_ = id;
 }
 
-void Airport::setLatitude(double latitude)
+void Airport::setLatitude(long double latitude)
 {
     latitude_ = latitude;
 }
 
-void Airport::setLongitude(double longitude)
+void Airport::setLongitude(long double longitude)
 {
     longitude_ = longitude;
 }
@@ -98,12 +98,12 @@ unsigned int Airport::getID() const
     return id_;
 }
 
-double Airport::getLatitude() const
+long double Airport::getLatitude() const
 {
     return latitude_;
 }
 
-double Airport::getLongitude() const
+long double Airport::getLongitude() const
 {
     return longitude_;
 }

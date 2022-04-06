@@ -1,6 +1,7 @@
 #include "Airport.h"
 // #include "Route.h"
 
+#include <bits/stdc++.h>
 #include <string>
 #include <vector>
 #include <map>
@@ -22,13 +23,15 @@ class Readfile
         map<string, unsigned int> iata_id;
         map<string, unsigned int> icao_id;
         void parse_correct_airport(string s, vector<Airport> & airport_vec);
-        void parse_correct_routes(string s, vector<Route> & routes_vec);
+        void parse_correct_routes(string s, vector<Route> & routes_vec, vector<Airport> & airport_vec);
         bool isNumber(const string& str);
+        long double toRadians(const long double degree);
+        long double distance(long double lat1, long double long1, long double lat2, long double long2);
 
     public:
         Readfile();
         ~Readfile();
         void readfile_airport(vector<Airport> & airport_vec);
-        void readfile_routes(vector<Route> & routes_vec);
+        void readfile_routes(vector<Route> & routes_vec, vector<Airport> & airport_vec);
 };
 

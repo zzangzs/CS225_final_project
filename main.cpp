@@ -4,6 +4,7 @@
 #include "Airport.h"
 // #include "Route.h"
 
+#include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -22,7 +23,7 @@ int main()
     //string filename = "./tests/airport_test.txt";
     Readfile read = Readfile();
     read.readfile_airport(airports);
-    read.readfile_routes(routes);
+    read.readfile_routes(routes, airports);
 
     // Graph myGraph(routes,airports);
     // myGraph.printGraph();
@@ -41,7 +42,9 @@ int main()
     for (unsigned int j = 0; j < routes.size(); j ++)
     {
         cout << routes[j].startID << " ";
-        cout << routes[j].endID << endl;
+        cout << routes[j].endID << " ";
+        cout << setprecision(15) << fixed;
+        cout << routes[j].dist << endl;
     }
 
     return 0;

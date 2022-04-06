@@ -7,6 +7,7 @@
 **/
 #include "Readfile.h"
 
+#include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -27,6 +28,43 @@ Readfile::~Readfile()
     /* Nothing */
 }
 
+
+/* Helper function converting degrees to radians */
+long double Readfile::toRadians(const long double degree)
+{
+    long double one_deg = (M_PI) / 180;
+    return (one_deg * degree);
+}
+
+
+long double Readfile::distance(long double lat1, long double long1, long double lat2, long double long2)
+{
+    // Convert the latitudes
+    // and longitudes
+    // from degree to radians.
+    lat1 = toRadians(lat1);
+    long1 = toRadians(long1);
+    lat2 = toRadians(lat2);
+    long2 = toRadians(long2);
+     
+    // Haversine Formula
+    long double dlong = long2 - long1;
+    long double dlat = lat2 - lat1;
+ 
+    long double ans = pow(sin(dlat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(dlong / 2), 2);
+ 
+    ans = 2 * asin(sqrt(ans));
+ 
+    // Radius of Earth in
+    // Kilometers, R = 6371
+    // Use R = 3956 for miles
+    long double R = 6371;
+     
+    // Calculate the result
+    ans = ans * R;
+ 
+    return ans;
+}
 
 /** 
     Helper function to check whether a string is a number. 
@@ -79,7 +117,7 @@ void Readfile::readfile_airport(vector<Airport> & airport_vec)
     @param routes_vec The vector that stores every Route struct
     @param filename The name of the input file
 **/
-void Readfile::readfile_routes(vector<Route> & routes_vec)
+void Readfile::readfile_routes(vector<Route> & routes_vec, vector<Airport> & airport_vec)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
@@ -90,7 +128,7 @@ void Readfile::readfile_routes(vector<Route> & routes_vec)
         while(getline(newfile, line))
         {
             // Parse each line and check for data error
-            parse_correct_routes(line, routes_vec);
+            parse_correct_routes(line, routes_vec, airport_vec);
         }
         newfile.close(); 
     }
@@ -180,7 +218,7 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
             }
             else
             {
-                double latitude = std::stod(substr);
+                double latitude = std::stold(substr);
                 if (latitude > 90 || latitude < -90)
                 {
                     airport_valid = false;
@@ -200,7 +238,7 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
             }
             else
             {
-                double longitude = std::stod(substr);
+                double longitude = std::stold(substr);
                 if (longitude > 180 || longitude < -180)
                 {
                     airport_valid = false;
@@ -253,7 +291,7 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
     @param routes_vec The vector that stores every Route struct
     @param s Every line of the input file
 **/
-void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec)
+void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec, vector<Airport> & airport_vec)
 {
     // Instantiate a Route struct
     Route *route = new Route;
@@ -345,6 +383,18 @@ void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec)
     {
         // cout << "Push_route" << endl;
         routes_vec.push_back(*route);
+
+        // Calculate distance between start airport and destination airport
+        long double lat_1 = airport_vec[route -> startID].getLatitude();
+        cout << lat_1 << " ";
+        long double long_1 = airport_vec[route -> startID].getLongitude();
+        cout << long_1 << " ";
+        long double lat_2 = airport_vec[route -> endID].getLatitude();
+        cout << lat_2 << " ";
+        long double long_2 = airport_vec[route -> endID].getLongitude();
+        cout << long_2 << endl;
+
+        route -> dist = distance(lat_1, long_1, lat_2, long_2);
     }
     else
     {
