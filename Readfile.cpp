@@ -56,7 +56,7 @@ void Readfile::readfile_airport(vector<Airport> & airport_vec)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
-    newfile.open("tests/airport_test.txt", ios::in);
+    newfile.open("./tests/airport_test.txt", ios::in);
     if (newfile.is_open() == true)
     {
         string line;
@@ -83,7 +83,7 @@ void Readfile::readfile_routes(vector<Route> & routes_vec)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
-    newfile.open("tests/routes_test.txt", ios::in);
+    newfile.open("./tests/routes_test.txt", ios::in);
     if (newfile.is_open() == true)
     {
         string line;
@@ -222,7 +222,11 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
             The actual assigned airport id is 'airport_vec.size()'
         */
         airport -> setId(airport_vec.size());
+
+        // cout << airport -> getID() << endl;
+
         id_change[orig_id] = airport_vec.size();
+        // cout << id_change[orig_id] << endl;
 
         // Set the two maps (IATA -> ID AND ICAO -> ID)
         if (airport -> getIATA() != "")
@@ -269,6 +273,7 @@ void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec)
         {
             // Read source Airport IATA or ICAO
             source = substr;
+            // cout << source << endl;
         }
         
         if (count == 3)
@@ -294,7 +299,7 @@ void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec)
                 }
             }
             else
-            {
+            {   
                 route -> startID = id_change[std::stoul(substr)];
             }
         }
