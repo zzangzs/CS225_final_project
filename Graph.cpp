@@ -32,7 +32,7 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
     //build routesMap from routes
     for (const Route & route : routes)
     {
-        routesMap_[make_pair(route.startID,route.endID)]=route.dist;
+        routesMap_[make_pair(route.getStartID(),route.getEndID())]=route.getDist();
     }
     
     // build adjacency list
