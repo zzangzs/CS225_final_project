@@ -33,18 +33,18 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
     }
     
     // build adjacency list
-    for (size_t row = 0; row < numAirports; row++)
+    for (size_t row = 1; row < numAirports; row++)
     {
-        for (size_t col = 0; col < numAirports; col++)
+        for (size_t col = 1; col < numAirports; col++)
         {
             pair<unsigned,unsigned> IDs = make_pair(airports[row].getID(), airports[col].getID());
             bool isIn = routesMap_.find(IDs) != routesMap_.end();
             if (isIn)
             {
-                adj_[row].push_back(routesMap_[IDs]);
+                adj_[row][col] = routesMap_[IDs];
             } else
             {
-                adj_[row].push_back(0);
+                adj_[row][col] = 0;
             }
         }
         
@@ -67,10 +67,10 @@ double Graph::findDist(unsigned ID_A, unsigned ID_B) const
 }
 
 void Graph::printGraph()
-{
+{  
     for (size_t i = 1; i < (*airports_ptr_).size(); i++)
     {
-        cout << "Airport " << airports_ptr_->at(i).getID() << "is adjacent to: " << endl;
+        cout << "Airport " << airports_ptr_->at(i).getID() << " is adjacent to: " << endl;
         for (size_t j = 1; j < (*airports_ptr_).size(); j++)
         {
 

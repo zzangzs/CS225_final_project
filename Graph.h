@@ -5,8 +5,6 @@
  */
 #pragma once
 
-// #include "Point.h"
-// #include "Route.h"
 #include "Airport.h"
 
 #include <iostream>
@@ -33,8 +31,8 @@ class Graph
         const vector<Airport>* airports_ptr_;
 
 
-
-    public:   
+    public:
+       
         // default constructor
         Graph();
 
