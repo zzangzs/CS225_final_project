@@ -2,6 +2,14 @@
 #include <string>
 using namespace std;
 
+struct Route
+{
+    unsigned int startID;
+    unsigned int endID;
+    double dist;
+    bool isLabeled;
+};
+
 class Airport
 {
     private:

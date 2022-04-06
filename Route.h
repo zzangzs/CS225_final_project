@@ -5,9 +5,3 @@
  */
 #pragma once
 
-struct Route
-{
-    unsigned int startID;
-    unsigned int endID;
-    double dist;
-};

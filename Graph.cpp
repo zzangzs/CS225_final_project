@@ -8,6 +8,8 @@
 
 using std::vector;
 using std::pair;
+using std::cout;
+using std::endl;
 
 Graph::Graph(){
 
@@ -62,4 +64,24 @@ double Graph::findDist(unsigned ID_A, unsigned ID_B) const
     {
         return 0;
     }
+}
+
+void Graph::printGraph()
+{
+    for (size_t i = 1; i < (*airports_ptr_).size(); i++)
+    {
+        cout << "Airport " << airports_ptr_->at(i).getID() << "is adjacent to: " << endl;
+        for (size_t j = 1; j < (*airports_ptr_).size(); j++)
+        {
+
+            if (adj_[i][j]!=0)
+            {
+                cout << "    Airport" << airports_ptr_->at(j).getID() << " with a distance of " << adj_[i][j] << endl;
+            }
+            
+        }
+        
+    }
+    
+
 }
