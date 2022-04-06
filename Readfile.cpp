@@ -56,7 +56,7 @@ void Readfile::readfile_airport(vector<Airport> & airport_vec)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
-    newfile.open("airport_test.txt", ios::in);
+    newfile.open("tests/airport_test.txt", ios::in);
     if (newfile.is_open() == true)
     {
         string line;
@@ -83,7 +83,7 @@ void Readfile::readfile_routes(vector<Route> & routes_vec)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
-    newfile.open("airport_test.txt", ios::in);
+    newfile.open("tests/routes_test.txt", ios::in);
     if (newfile.is_open() == true)
     {
         string line;
