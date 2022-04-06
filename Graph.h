@@ -22,7 +22,7 @@ class Graph
 {
     private:
         // used in DFS
-        vector<bool> visited_;  
+        //vector<bool> visited_;  
 
         // adjacency list: represent the graph itself; may be replaced by routesMap_
         vector<vector<double> > adj_; 
@@ -32,8 +32,9 @@ class Graph
 
         vector<Route> edges_;
 
-        //const vector<Airport>* airports_ptr_;
-        vector<Airport> vertices_;
+        const vector<Airport>* airports_ptr_;
+
+        void BFS(int start_idx);
 
 
 
@@ -48,10 +49,5 @@ class Graph
 
         void printGraph();
 
-  
-        void setVisited(int idx, bool visited);
-
-        bool getVisited();
-
-        void BFS(int start_idx);
+        void BFS();
 };
