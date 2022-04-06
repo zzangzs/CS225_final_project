@@ -5,7 +5,9 @@
  */
 
 #include "Graph.h"
+#include <map>
 
+using std::map;
 using std::vector;
 using std::pair;
 using std::cout;
@@ -19,32 +21,33 @@ Graph::Graph(){
 Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
 {
     airports_ptr_ = &airports;
+    routes_ptr_ = &routes;
 
     unsigned numAirports = airports.size();
     unsigned numRoutes = routes.size();
 
-    visited_.resize(numAirports,false);
     adj_.resize(numAirports,vector<double>(numAirports,0));
   
+    map<pair<unsigned,unsigned>,double> routesMap_;
     //build routesMap from routes
     for (const Route & route : routes)
     {
-        routesMap_[make_pair(route.startID,route.endID)]=route.dist;
+        routesMap_[make_pair(route.getStartID(),route.getEndID())]=route.getDist();
     }
     
     // build adjacency list
-    for (size_t row = 0; row < numAirports; row++)
+    for (size_t row = 1; row < numAirports; row++)
     {
-        for (size_t col = 0; col < numAirports; col++)
+        for (size_t col = 1; col < numAirports; col++)
         {
             pair<unsigned,unsigned> IDs = make_pair(airports[row].getID(), airports[col].getID());
             bool isIn = routesMap_.find(IDs) != routesMap_.end();
             if (isIn)
             {
-                adj_[row].push_back(routesMap_[IDs]);
+                adj_[row][col] = routesMap_[IDs];
             } else
             {
-                adj_[row].push_back(0);
+                adj_[row][col] = 0;
             }
         }
         
@@ -53,25 +56,12 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
 
 }
 
-double Graph::findDist(unsigned ID_A, unsigned ID_B) const
-{
-    pair<unsigned,unsigned> IDs = make_pair(ID_A, ID_B);
-    bool isIn = routesMap_.find(IDs) != routesMap_.end();
-    if (isIn)
-    {
-        return routesMap_.at(IDs);
-    } else
-    {
-        return 0;
-    }
-}
-
 void Graph::printGraph()
-{
-    for (size_t i = 1; i < (*airports_ptr_).size(); i++)
+{  
+    for (size_t i = 1; i < airports_ptr_->size(); i++)
     {
-        cout << "Airport " << airports_ptr_->at(i).getID() << "is adjacent to: " << endl;
-        for (size_t j = 1; j < (*airports_ptr_).size(); j++)
+        cout << "Airport " << airports_ptr_->at(i).getID() << " is adjacent to: " << endl;
+        for (size_t j = 1; j < airports_ptr_->size(); j++)
         {
 
             if (adj_[i][j]!=0)
