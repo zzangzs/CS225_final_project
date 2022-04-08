@@ -10,7 +10,7 @@ class Route
     private:
         unsigned int startID;
         unsigned int endID;
-        long double dist;
+        long double dist_;
 
     public:
         Route(unsigned start, unsigned end, long double dist);

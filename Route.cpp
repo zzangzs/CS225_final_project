@@ -7,7 +7,7 @@
 #include "Route.h"
 
 Route::Route(unsigned start, unsigned end, long double dist): 
-    startID(start), endID(end), dist(dist) {}
+    startID(start), endID(end), dist_(dist) {}
 
 unsigned Route::getStartID() const
 {
@@ -21,7 +21,7 @@ unsigned Route::getEndID() const
 
 long double Route::getDist() const
 {
-    return dist;
+    return dist_;
 }
 
 void Route::setStartID(unsigned start)
@@ -36,5 +36,5 @@ void Route::setEndID(unsigned end)
 
 void Route::setDist(long double dist)
 {
-    dist = dist;
+    dist_ = dist;
 }

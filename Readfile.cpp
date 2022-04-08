@@ -117,7 +117,7 @@ void Readfile::readfile_airport(vector<Airport> & airport_vec)
     @param routes_vec The vector that stores every Route struct
     @param filename The name of the input file
 **/
-void Readfile::readfile_routes(vector<Route> & routes_vec, vector<Airport> & airport_vec)
+void Readfile::readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
@@ -291,10 +291,10 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
     @param routes_vec The vector that stores every Route struct
     @param s Every line of the input file
 **/
-void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec, vector<Airport> & airport_vec)
+void Readfile::parse_correct_routes(string s, vector<Route*> & routes_vec, vector<Airport> & airport_vec)
 {
     // Instantiate a Route struct
-    Route *route = new Route;
+    Route *route = new Route(0, 0, 0);
 
     stringstream s_stream(s);
     int count = 0;
@@ -311,7 +311,6 @@ void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec, vector
         {
             // Read source Airport IATA or ICAO
             source = substr;
-            // cout << source << endl;
         }
         
         if (count == 3)
@@ -328,17 +327,17 @@ void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec, vector
                 if (source.length() == 3)
                 {
                     string find = "\"" + source + "\"";
-                    route -> endID = iata_id[find];
+                    route -> setStartID(iata_id[find]);
                 }
                 else
                 {
                     string find = "\"" + source + "\"";
-                    route -> endID = icao_id[find];
+                    route -> setStartID(icao_id[find]);
                 }
             }
             else
             {   
-                route -> startID = id_change[std::stoul(substr)];
+                route -> setStartID(id_change[std::stoul(substr)]);
             }
         }
 
@@ -362,17 +361,17 @@ void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec, vector
                 if (dest.length() == 3)
                 {
                     string find = "\"" + dest + "\"";
-                    route -> endID = iata_id[find];
+                    route -> setEndID(iata_id[find]);
                 }
                 else
                 {
                     string find = "\"" + dest + "\"";
-                    route -> endID = icao_id[find];
+                    route -> setEndID(icao_id[find]);
                 }
             }
             else
             {
-                route -> endID = id_change[std::stoul(substr)];
+                route -> setEndID(id_change[std::stoul(substr)]);
             }
         }
         count ++;
@@ -382,19 +381,15 @@ void Readfile::parse_correct_routes(string s, vector<Route> & routes_vec, vector
     if (route_valid == true)
     {
         // cout << "Push_route" << endl;
-        routes_vec.push_back(*route);
+        routes_vec.push_back(route);
 
         // Calculate distance between start airport and destination airport
-        long double lat_1 = airport_vec[route -> startID].getLatitude();
-        cout << lat_1 << " ";
-        long double long_1 = airport_vec[route -> startID].getLongitude();
-        cout << long_1 << " ";
-        long double lat_2 = airport_vec[route -> endID].getLatitude();
-        cout << lat_2 << " ";
-        long double long_2 = airport_vec[route -> endID].getLongitude();
-        cout << long_2 << endl;
+        long double lat_1 = airport_vec[route -> getStartID()].getLatitude();
+        long double long_1 = airport_vec[route -> getStartID()].getLongitude();
+        long double lat_2 = airport_vec[route -> getEndID()].getLatitude();
+        long double long_2 = airport_vec[route -> getEndID()].getLongitude();
 
-        route -> dist = distance(lat_1, long_1, lat_2, long_2);
+        route -> setDist(distance(lat_1, long_1, lat_2, long_2));
     }
     else
     {

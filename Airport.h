@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 
+/*
 struct Route
 {
     unsigned int startID;
@@ -9,6 +10,7 @@ struct Route
     long double dist;
     bool isLabeled;
 };
+*/
 
 class Airport
 {
