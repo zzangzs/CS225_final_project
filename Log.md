@@ -42,14 +42,31 @@ We did encounter several problems, such as which containers to store necessary d
 author: YL
 
 ### What goals you had set for the week and whether they were accomplished or not
-
+1. Finish BFS in the airport class. Fail to accomplish.
+2. Debug the existing class, write test cases. Accomplished.
+3. Modifing classes if possible. Accomplished.
 
 ### What specific tasks each member of your team accomplished in the week
+**Nan Kang : write test cases for airport class and readfile class**
+1. Use small-size sample to test the output of readfile and airport.
+2. Check if the outputs match with our goal.
 
+**Yixiao Fang: fix bugs in readfile class**
+1. Find out bugs in the readfile class.
+2. Fix the bugs - not yet accomplished, assigned to next week.
+
+**Zisu Jiang: fix bugs in graph class**
+1. Fixed bugs in printGraph and graph constructor.
+
+**Yu Li: write test cases for graph and investigate in BFS**
+1. Use arbitrary input to test the graph constructor and printGraph.
+2. Investigate BFS - not yet accomplished, assigned to next week.
 
 ### What problems you encountered (if any) that prevented you from meeting your goals
-
+We are still arguing about the data storage. The main issue is around the usability of BFS. We are not sure how to incorporate BFS in our implementation, since we don't need traverse the graph to find the shortest path. 
 
 ### What you plan to accomplish next week
-
+1. Finish BFS.
+2. Debug readFile.
+3. test BFS.
 
