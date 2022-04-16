@@ -3,7 +3,6 @@
 int main(){
     vector<Route> routes;
     vector<Airport> airports;
-    airports.push_back(Airport());
     for(int i = 0 ; i < 3 ; i++){
         Route route(0,0,0);
         route.setStartID(i);

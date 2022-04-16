@@ -41,7 +41,9 @@ class Graph
         vector<unsigned> Dijkstra(unsigned int departure, unsigned int destination);
 
         // BFS later
-        void printGraph();
+        void printGraph() const;
+
+        //void printFlight() const;
 
         int BFS();
 };

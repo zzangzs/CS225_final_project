@@ -57,7 +57,7 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
     }
 }
 
-void Graph::printGraph()
+void Graph::printGraph() const
 {  
     for (size_t i = 0; i < airports_ptr_->size(); i++)
     {
@@ -127,7 +127,7 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
         visited.push_back(false);
     }
     d[departure] = 0;
-
+    p.resize(numAirports);
     //initialize the priority queue
     priority_queue<pair<double, unsigned>> pq;
     pq.push(make_pair(0, departure));
