@@ -3,7 +3,7 @@
  *
  * @author DHREV: ZJ
  */
-
+#include <bits/stdc++.h> //for priority queue
 #include "Graph.h"
 #include <map>
 #include <stack>
@@ -97,8 +97,9 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     pq.push(make_pair(0, departure));
 
     while(pq.top().second != destination){
-        pair<double,unsigned> cur_dist_id = pq.pop();
+        pair<double,unsigned> cur_dist_id = pq.top();
         unsigned cur = cur_dist_id.second;
+        pq.pop();
         for (unsigned i = 0; i < numAirports; i++){//for neighbor in current_node's neighbors
             if (adj_[cur][i] != 0 && !visited[i]){ //push unvisisted neighbors to pq
                 if ((d[cur] + adj_[cur][i]) < d[i]){ //if cost is cheap
@@ -125,7 +126,8 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     s.push(departure);
 
     while(!s.empty()){
-        unsigned temp = s.pop();
+        unsigned temp = s.top();
+        s.pop();
         path.push_back(temp);
     }
 
