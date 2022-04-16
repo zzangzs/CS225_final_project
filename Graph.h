@@ -19,18 +19,19 @@ class Graph
 {
     private:
         // adjacency list: represent the graph itself; may be replaced by routesMap_
-        vector<vector<double> > adj_;
+        vector<vector<double>> adj_;
         // add size of airport
         unsigned numAirports;
 
         const vector<Airport>* airports_ptr_;
         const vector<Route>* routes_ptr_;
 
-        //void BFS(int start_idx);
+        void BFS(int start_idx);
 
 
 
-    public:   
+    public:
+        double total_dist;
         // default constructor
         Graph();
 
@@ -44,5 +45,5 @@ class Graph
 
         //void printFlight() const;
 
-        //void BFS();
+        void BFS();
 };

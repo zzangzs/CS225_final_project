@@ -1,7 +1,7 @@
 /**
  * @file Graph.hs
  *
- * @author DHREV: ZJ
+ * @author DHREV: ZJ KN
  */
 #include <bits/stdc++.h> //for priority queue
 #include "Graph.h"
@@ -60,13 +60,13 @@ void Graph::printGraph() const
 {  
     for (size_t i = 0; i < airports_ptr_->size(); i++)
     {
-        cout << "Airport " << airports_ptr_->at(i).getID() +1 << " is adjacent to: " << endl;
+        cout << "Airport " << airports_ptr_->at(i).getID()+1 << " is adjacent to: " << endl;
         for (size_t j = 0; j < airports_ptr_->size(); j++)
         {
 
             if (adj_[i][j]!=0)
             {
-                cout << "    Airport " << airports_ptr_->at(j).getID() + 1 << " with a distance of " << adj_[i][j] << endl;
+                cout << "    Airport" << airports_ptr_->at(j).getID()+1 << " with a distance of " << adj_[i][j] << endl;
             }
             
         }
@@ -115,14 +115,16 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     //extract path from previous
     vector<unsigned> path; //from departure to destination order
     stack<unsigned> s;
-    double total_dist; //use to calculate total distance 
+    total_dist = 0; //use to calculate total distance 
 
     unsigned temp = destination;
+    s.push(temp);
     while(p[temp] != departure){
-        s.push(temp);
+        s.push(p[temp]);
         total_dist += adj_[p[temp]][temp]; //use to calculate total distance 
         temp = p[temp];
     }
+    total_dist += adj_[p[temp]][temp];
     s.push(departure);
 
     while(!s.empty()){
