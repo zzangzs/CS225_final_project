@@ -70,3 +70,35 @@ We are still arguing about the data storage. The main issue is around the usabil
 2. Debug readFile.
 3. test BFS.
 
+## 2022/4/15 Week 3
+author: FYX
+
+### What goals you had set for the week and whether they were accomplished or not
+1. Finish BFS in the airport class. Accomplished.
+2. Debug the Graph class, write unformal test cases. Accomplished.
+3. Update the Readfile class with calculating distances between airports. Accomplished.
+
+### What specific tasks each member of your team accomplished in the week
+**Nan Kang : Write the first draft of Dijkstra's algorithm and test**
+1. Apply the general Dijkstra's algorithm on the graph we build.
+2. Use small-size sample to test the output of Dijkstra's algorithm implemented on our graph.
+
+**Yixiao Fang: Update the readfile class and help with implementing the Dijkstra's algorithm**
+1. Add the function of calculating distance between two airports with known longitude and latitude.
+2. Help apply the general Dijkstra's algorithm on the graph we build.
+
+**Zisu Jiang: Improve the Graph class**
+1. Fix bugs in the Graph class, and help testing Dijkstra's algorithm.
+2. Start to implement the PageRank algorithm.
+
+**Yu Li: Write BFS**
+1. Implement BFS on our graph. 
+2. Write tests to check BFS and connectivity of our graph.
+
+### What problems you encountered (if any) that prevented you from meeting your goals
+No major problem. 
+
+### What you plan to accomplish next week
+1. Go further on PageRank algorithm.
+2. Refine the Graph class (including Dijkstra's algorithm).
+3. Start to come up with methods for graph visualization. 
