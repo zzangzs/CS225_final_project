@@ -7,6 +7,7 @@
 #include "Graph.h"
 #include <map>
 #include <stack>
+#include <queue>
 
 using std::map;
 using std::vector;
@@ -73,6 +74,38 @@ void Graph::printGraph()
         
     }
     
+}
+
+int Graph::BFS()
+{
+    vector<bool> visited;
+    visited.resize(numAirports, false);
+    int count;
+    for(int i = 1 ; i < numAirports ; i++){
+        if(visited[i] == false){
+            BFS(&visited, i);
+            count++;
+        }
+    }
+    return count;
+}
+
+void Graph::BFS(vector<bool>* visited, int start_idx)
+{
+    std::queue<int> q;
+    (*visited)[start_idx] = true;
+    q.push(start_idx);
+    while(!q.empty()){
+        int v = q.front();
+        std::cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<std::endl;
+        q.pop();
+        for(int i = 1 ; i < numAirports ; i++){
+            if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
+                (*visited)[i] = true;           //set to visited
+                q.push(i);                      //add to queue
+            }
+        }
+    }
 }
 
 //Dijkstra: find the shortest path from one airport to the other
