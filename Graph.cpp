@@ -87,16 +87,15 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
 
     for (unsigned i = 0; i < numAirports; i++){
         d.push_back(inf);
-        p.push_back(NULL);
         visited.push_back(false);
     }
     d[departure] = 0;
-
+    p.resize(numAirports);
     //initialize the priority queue
     priority_queue<pair<double, unsigned>> pq;
     pq.push(make_pair(0, departure));
 
-    while(pq.top().second != destination){
+    while(pq.top().second != destination && !pq.empty()){
         pair<double,unsigned> cur_dist_id = pq.top();
         unsigned cur = cur_dist_id.second;
         pq.pop();

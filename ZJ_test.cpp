@@ -33,7 +33,7 @@ int main()
     Graph myGraph(routes,airports);
     myGraph.printGraph();
 
-    vector<unsigned> flight = myGraph.Graph::Dijkstra(0,2);
+    vector<unsigned> flight = myGraph.Graph::Dijkstra(0,3);
     for(auto stop:flight)
     {
         cout<<stop<<endl;
