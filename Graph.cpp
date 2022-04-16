@@ -82,12 +82,12 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     //initialize distance matrix, previous node matrix, and visited matrix
     vector<double> d; //distance matrix
     vector<unsigned> p; //previous node matrix
+    p.resize(numAirports);
     vector<bool> visited; //visited matrix
     double inf = std::numeric_limits<double>::max();
 
     for (unsigned i = 0; i < numAirports; i++){
         d.push_back(inf);
-        p.push_back(NULL);
         visited.push_back(false);
     }
     d[departure] = 0;
@@ -96,7 +96,7 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     priority_queue<pair<double, unsigned>> pq;
     pq.push(make_pair(0, departure));
 
-    while(pq.top().second != destination){
+    while(!pq.empty()&& pq.top().second != destination){
         pair<double,unsigned> cur_dist_id = pq.top();
         unsigned cur = cur_dist_id.second;
         pq.pop();
@@ -110,6 +110,13 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
             } 
         }
         visited[cur] = true;
+    }
+
+    if (pq.empty()){
+        total_dist = 0;
+        vector<unsigned> fail;
+        fail.push_back(999999);
+        return fail;
     }
 
     //extract path from previous
