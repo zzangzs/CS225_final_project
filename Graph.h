@@ -30,7 +30,8 @@ class Graph
 
 
 
-    public:   
+    public:
+        double total_dist;
         // default constructor
         Graph();
 
