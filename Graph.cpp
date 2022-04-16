@@ -3,7 +3,7 @@
  *
  * @author DHREV: ZJ
  */
-
+#include <bits/stdc++.h> //for priority queue
 #include "Graph.h"
 #include <map>
 #include <stack>
@@ -78,6 +78,7 @@ void Graph::printGraph()
 //Dijkstra: find the shortest path from one airport to the other
 //input: adjMatrix, departure airport id, destination airport id
 //output: vector of airport id representing the path
+<<<<<<< HEAD
 // vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destination){
 //     //initialize distance matrix, previous node matrix, and visited matrix
 //     vector<double> d; //distance matrix
@@ -130,4 +131,61 @@ void Graph::printGraph()
 
 //     return path;
 // }
+=======
+vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destination){
+    //initialize distance matrix, previous node matrix, and visited matrix
+    vector<double> d; //distance matrix
+    vector<unsigned> p; //previous node matrix
+    vector<bool> visited; //visited matrix
+    double inf = std::numeric_limits<double>::max();
+
+    for (unsigned i = 0; i < numAirports; i++){
+        d.push_back(inf);
+        p.push_back(NULL);
+        visited.push_back(false);
+    }
+    d[departure] = 0;
+
+    //initialize the priority queue
+    priority_queue<pair<double, unsigned>> pq;
+    pq.push(make_pair(0, departure));
+
+    while(pq.top().second != destination){
+        pair<double,unsigned> cur_dist_id = pq.top();
+        unsigned cur = cur_dist_id.second;
+        pq.pop();
+        for (unsigned i = 0; i < numAirports; i++){//for neighbor in current_node's neighbors
+            if (adj_[cur][i] != 0 && !visited[i]){ //push unvisisted neighbors to pq
+                if ((d[cur] + adj_[cur][i]) < d[i]){ //if cost is cheap
+                    d[i] = d[cur] + adj_[cur][i]; //update its neighbor's distance
+                    p[i] = cur; //update previous node
+                }
+                pq.push(make_pair( -d[i], i)); //push neighbors to pq, push negative dist as it is Max Priority queue
+            } 
+        }
+        visited[cur] = true;
+    }
+
+    //extract path from previous
+    vector<unsigned> path; //from departure to destination order
+    stack<unsigned> s;
+    double total_dist; //use to calculate total distance 
+
+    unsigned temp = destination;
+    while(p[temp] != departure){
+        s.push(temp);
+        total_dist += adj_[p[temp]][temp]; //use to calculate total distance 
+        temp = p[temp];
+    }
+    s.push(departure);
+
+    while(!s.empty()){
+        unsigned temp = s.top();
+        s.pop();
+        path.push_back(temp);
+    }
+
+    return path;
+}
+>>>>>>> 622b9a83911e7baa3816a53bf22fdca774c99311
 
