@@ -39,9 +39,9 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
     }
     
     // build adjacency list
-    for (size_t row = 1; row < numAirports; row++)
+    for (size_t row = 0; row < numAirports; row++)
     {
-        for (size_t col = 1; col < numAirports; col++)
+        for (size_t col = 0; col < numAirports; col++)
         {
             pair<unsigned,unsigned> IDs = make_pair(airports[row].getID(), airports[col].getID());
             bool isIn = routesMap_.find(IDs) != routesMap_.end();
@@ -58,15 +58,15 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
 
 void Graph::printGraph()
 {  
-    for (size_t i = 1; i < airports_ptr_->size(); i++)
+    for (size_t i = 0; i < airports_ptr_->size(); i++)
     {
-        cout << "Airport " << airports_ptr_->at(i).getID() << " is adjacent to: " << endl;
-        for (size_t j = 1; j < airports_ptr_->size(); j++)
+        cout << "Airport " << airports_ptr_->at(i).getID()+1 << " is adjacent to: " << endl;
+        for (size_t j = 0; j < airports_ptr_->size(); j++)
         {
 
             if (adj_[i][j]!=0)
             {
-                cout << "    Airport" << airports_ptr_->at(j).getID() << " with a distance of " << adj_[i][j] << endl;
+                cout << "    Airport" << airports_ptr_->at(j).getID()+1 << " with a distance of " << adj_[i][j] << endl;
             }
             
         }
@@ -115,14 +115,16 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     //extract path from previous
     vector<unsigned> path; //from departure to destination order
     stack<unsigned> s;
-    double total_dist; //use to calculate total distance 
+    total_dist = 0; //use to calculate total distance 
 
     unsigned temp = destination;
+    s.push(temp);
     while(p[temp] != departure){
-        s.push(temp);
+        s.push(p[temp]);
         total_dist += adj_[p[temp]][temp]; //use to calculate total distance 
         temp = p[temp];
     }
+    total_dist += adj_[p[temp]][temp];
     s.push(departure);
 
     while(!s.empty()){
