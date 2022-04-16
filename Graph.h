@@ -37,10 +37,12 @@ class Graph
         // customized constructor
         Graph(const vector<Route> & routes, const vector<Airport> & airports);
 
-        //vector<unsigned> Dijkstra(unsigned int departure, unsigned int destination);
+        vector<unsigned> Dijkstra(unsigned int departure, unsigned int destination);
 
         // BFS later
-        void printGraph();
+        void printGraph() const;
+
+        //void printFlight() const;
 
         //void BFS();
 };
