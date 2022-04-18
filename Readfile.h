@@ -1,7 +1,7 @@
 #include "Airport.h"
 #include "Route.h"
 
-#include <bits/stdc++.h>
+#include <math.h>
 #include <string>
 #include <vector>
 #include <map>
@@ -31,7 +31,7 @@ class Readfile
     public:
         Readfile();
         ~Readfile();
-        void readfile_airport(vector<Airport> & airport_vec);
-        void readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec);
+        void readfile_airport(vector<Airport> & airport_vec, string filepath);
+        void readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec, string filepath);
 };
 

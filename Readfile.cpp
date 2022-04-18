@@ -7,7 +7,7 @@
 **/
 #include "Readfile.h"
 
-#include <bits/stdc++.h>
+#include <math.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -88,13 +88,13 @@ bool Readfile::isNumber(const string& str)
     constructed Airport object will be pushed into 'airport_vec', otherwise not. 
 
     @param airport_vec The vector that stores every Airport object
-    @param filename The name of the input file
+    @param filepath The path and name of the input file
 **/
-void Readfile::readfile_airport(vector<Airport> & airport_vec)
+void Readfile::readfile_airport(vector<Airport> & airport_vec, string filepath)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
-    newfile.open("./tests/airport_test.txt", ios::in);
+    newfile.open(filepath, ios::in);
     if (newfile.is_open() == true)
     {
         string line;
@@ -115,13 +115,13 @@ void Readfile::readfile_airport(vector<Airport> & airport_vec)
     constructed Route struct will be pushed into 'routes_vec', otherwise not. 
 
     @param routes_vec The vector that stores every Route struct
-    @param filename The name of the input file
+    @param filepath The path and name of the input file
 **/
-void Readfile::readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec)
+void Readfile::readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec, string filepath)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
-    newfile.open("./tests/routes_test.txt", ios::in);
+    newfile.open(filepath, ios::in);
     if (newfile.is_open() == true)
     {
         string line;
@@ -171,6 +171,13 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
                 airport_valid = false;
                 break;
             }
+
+            if (substr[0] != '\"' || substr[substr.length() - 1] != '\"')
+            {
+                airport_valid = false;
+                break;
+            }
+
             airport -> setName(substr);
         }
 
@@ -182,6 +189,13 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
                 airport_valid = false;
                 break;
             }
+
+            if (substr[0] != '\"' || substr[substr.length() - 1] != '\"')
+            {
+                airport_valid = false;
+                break;
+            }
+
             airport -> setCity(substr);
         }
 
@@ -193,6 +207,13 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
                 airport_valid = false;
                 break;
             }
+
+            if (substr[0] != '\"' || substr[substr.length() - 1] != '\"')
+            {
+                airport_valid = false;
+                break;
+            }
+
             airport -> setCountry(substr);
         }
 
@@ -260,11 +281,7 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
             The actual assigned airport id is 'airport_vec.size()'
         */
         airport -> setId(airport_vec.size());
-
-        // cout << airport -> getID() << endl;
-
         id_change[orig_id] = airport_vec.size();
-        // cout << id_change[orig_id] << endl;
 
         // Set the two maps (IATA -> ID AND ICAO -> ID)
         if (airport -> getIATA() != "")
