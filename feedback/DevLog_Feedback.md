@@ -16,8 +16,8 @@ Feel free to contact me if you have any questions/concerns about the project.
 
 
 ### Grade
-Missing log update
+Sufficient
 
 ### Comments:
-Your group has not updated the development log for this week.
+Initially was missing a log submission for this week, but it was updated later. It looks like your group is still making consistent progress despite the bugs, which is good. I'm not sure if I understand your issue regarding the "usability of BFS". Are you not sure about how BFS will be used in your final project program? If so, it's fine if you don't use BFS in determining the shortest path or the most important airports, as BFS is really only needed to satisfy the traversal requirement. In your case, BFS actually will output the shortest path between two airports in terms of the number of intermediate airport stops (i.e. it will try to find the path which visits the least number of airports). So this is something you could write about in your final report, or something you could add to your leading question.
 

@@ -7,6 +7,7 @@
 #include "Graph.h"
 #include <map>
 #include <stack>
+#include <queue>
 
 using std::map;
 using std::vector;
@@ -56,7 +57,7 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
     }
 }
 
-void Graph::printGraph()
+void Graph::printGraph() const
 {  
     for (size_t i = 0; i < airports_ptr_->size(); i++)
     {
@@ -75,6 +76,41 @@ void Graph::printGraph()
     
 }
 
+int Graph::BFS()
+{
+    vector<bool> visited;
+    visited.resize(numAirports, false);
+    int count;
+    for(int i = 0 ; i < numAirports ; i++){
+        if(visited[i] == false){
+            BFS(&visited, i);
+            count++;
+        }
+    }
+    return count;
+}
+
+void Graph::BFS(vector<bool>* visited, int start_idx)
+{
+    std::queue<int> q;
+    (*visited)[start_idx] = true;
+    q.push(start_idx);
+    while(!q.empty()){
+        int v = q.front();
+        std::cout<<"Airport name: "<<airports_ptr_->at(v).getName()<<std::endl;
+        std::cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<std::endl;
+        std::cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<std::endl;
+        std::cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<std::endl;
+        q.pop();
+        for(int i = 0 ; i < numAirports ; i++){
+            if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
+                (*visited)[i] = true;           //set to visited
+                q.push(i);                      //add to queue
+            }
+        }
+    }
+}
+
 //Dijkstra: find the shortest path from one airport to the other
 //input: adjMatrix, departure airport id, destination airport id
 //output: vector of airport id representing the path
@@ -82,21 +118,21 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     //initialize distance matrix, previous node matrix, and visited matrix
     vector<double> d; //distance matrix
     vector<unsigned> p; //previous node matrix
+    p.resize(numAirports);
     vector<bool> visited; //visited matrix
     double inf = std::numeric_limits<double>::max();
 
     for (unsigned i = 0; i < numAirports; i++){
         d.push_back(inf);
-        p.push_back(NULL);
         visited.push_back(false);
     }
     d[departure] = 0;
-
+    p.resize(numAirports);
     //initialize the priority queue
     priority_queue<pair<double, unsigned>> pq;
     pq.push(make_pair(0, departure));
 
-    while(pq.top().second != destination){
+    while(!pq.empty()&& pq.top().second != destination){
         pair<double,unsigned> cur_dist_id = pq.top();
         unsigned cur = cur_dist_id.second;
         pq.pop();
@@ -110,6 +146,13 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
             } 
         }
         visited[cur] = true;
+    }
+
+    if (pq.empty()){
+        total_dist = 0;
+        vector<unsigned> fail;
+        fail.push_back(999999);
+        return fail;
     }
 
     //extract path from previous
