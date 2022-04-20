@@ -103,7 +103,7 @@ No major problem.
 2. Refine the Graph class (including Dijkstra's algorithm).
 3. Start to come up with methods for graph visualization. 
 
-## 2022/4/19 Week 3
+## 2022/4/19 Week 4
 author: KN
 
 ### What goals you had set for the week and whether they were accomplished or not
