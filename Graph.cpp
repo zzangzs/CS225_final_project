@@ -175,7 +175,7 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
 }
 vector<double> MatrixMult (vector<vector<double> > & m1, vector<vector<double> > & m2)
 {
-
+    
 }
 
 vector<unsigned> Graph::PageRank(int numIterations=100) const
@@ -215,7 +215,7 @@ vector<unsigned> Graph::PageRank(int numIterations=100) const
             }
            
         }
-        
+
         PR[row] = 1/vote;
     }
     vector<vector<double> > M;
