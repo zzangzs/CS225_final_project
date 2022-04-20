@@ -97,6 +97,9 @@ void Graph::BFS(vector<bool>* visited, int start_idx)
     q.push(start_idx);
     while(!q.empty()){
         int v = q.front();
+        std::cout<<"Airport name: "<<airports_ptr_->at(v).getName()<<std::endl;
+        std::cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<std::endl;
+        std::cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<std::endl;
         std::cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<std::endl;
         q.pop();
         for(int i = 0 ; i < numAirports ; i++){
