@@ -123,7 +123,6 @@ author: KN
 
 **Yu Li: Research on Visualization**
 1. Start to implement graph visualization.
-2. 
 
 ### What problems you encountered (if any) that prevented you from meeting your goals
 The running time of Dijkstra's algorithm is too long since the dataset is very big.
