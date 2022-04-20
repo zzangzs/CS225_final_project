@@ -16,56 +16,52 @@ int main()
 {
     // Initialize the airport vector
     vector<Airport> airports;
-    airports.push_back(Airport());
+
     // Initialize the routes vector
     vector<Route> routes;
-
+    vector<Route*> routes_ptrs;
     //string filename = "./tests/airport_test.txt";
+    Readfile read_test = Readfile();
+    read_test.readfile_airport(airports, "./tests/airports_test.txt");
+    read_test.readfile_routes(routes_ptrs, airports, "./tests/routes_test.txt");
+    
+    for (auto & ptr : routes_ptrs)
+    {
+        routes.push_back(*ptr);
+    }
+
+    Graph testGraph(routes,airports);
+    testGraph.printGraph();
+    testGraph.BFS();
+
+    vector<unsigned> flight = testGraph.Dijkstra(0,3);
+    for(auto stop:flight)
+    {
+        cout<<stop<<endl;
+    }
+    
+
+    airports.clear();
+    routes.clear();
+    routes_ptrs.clear();
+    flight.clear();
+
     Readfile read = Readfile();
-    read.readfile_airport(airports);
-    read.readfile_routes(routes);
-    // Route route1,route2,route3,route4;
-    // route1.startID = 1;
-    // route1.endID = 2;
-    // route1.dist = 5;
+    read.readfile_airport(airports, "./data/airports.txt");
+    read.readfile_routes(routes_ptrs, airports, "./data/routes.txt");
 
-    // route2.startID = 3;
-    // route2.endID = 4;
-    // route2.dist = 25;
-
-    // route3.startID = 1;
-    // route3.endID = 3;
-    // route3.dist = 10;
-
-    // route4.startID = 4;
-    // route4.endID = 2;
-    // route4.dist = 20;
-
-
-    // routes.push_back(route1);
-    // routes.push_back(route2);
-    // routes.push_back(route3);
-    // routes.push_back(route4);
+    for (auto & ptr : routes_ptrs)
+    {
+        routes.push_back(*ptr);
+    }
 
     Graph myGraph(routes,airports);
-    myGraph.printGraph();
-    // for (unsigned int i = 1; i < airports.size(); i ++)
-    // {
-    //     cout << airports[i].getID() << " ";
-    //     cout << airports[i].getName() << " ";
-    //     cout << airports[i].getCity() << " ";
-    //     cout << airports[i].getIATA() << " ";
-    //     cout << airports[i].getICAO() << " ";
-    //     cout << airports[i].getCountry() << " ";
-    //     cout << airports[i].getLatitude() << " ";
-    //     cout << airports[i].getLongitude() << endl;
-    // }
-    // cout << "\n";
-    // for (unsigned int j = 0; j < routes.size(); j ++)
-    // {
-    //     cout << routes[j].startID << " ";
-    //     cout << routes[j].endID << endl;
-    // }
 
+    flight = myGraph.Dijkstra(3194,3629);
+    for(auto stop:flight)
+    {
+        cout<<stop<<endl;
+    }
+    
     return 0;
 }
