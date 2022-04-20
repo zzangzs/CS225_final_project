@@ -3,7 +3,7 @@
  *
  * @author DHREV: ZJ KN
  */
-#include <bits/stdc++.h> //for priority queue
+// #include <bits/stdc++.h> //for priority queue
 #include "Graph.h"
 #include <map>
 #include <stack>
@@ -80,8 +80,8 @@ int Graph::BFS()
 {
     vector<bool> visited;
     visited.resize(numAirports, false);
-    int count;
-    for(int i = 0 ; i < numAirports ; i++){
+    int count = 0; // modify 'int count;' to 'int count = 0'
+    for(unsigned int i = 0 ; i < numAirports ; i++){ // Modify int to unsigned int
         if(visited[i] == false){
             BFS(&visited, i);
             count++;
@@ -102,7 +102,7 @@ void Graph::BFS(vector<bool>* visited, int start_idx)
         std::cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<std::endl;
         std::cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<std::endl;
         q.pop();
-        for(int i = 0 ; i < numAirports ; i++){
+        for(unsigned int i = 0 ; i < numAirports ; i++){
             if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
                 (*visited)[i] = true;           //set to visited
                 q.push(i);                      //add to queue
