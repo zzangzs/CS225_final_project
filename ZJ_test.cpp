@@ -32,14 +32,14 @@ int main()
 
     Graph myGraph(routes,airports);
     myGraph.printGraph();
+    myGraph.BFS();
 
-
-    vector<unsigned> flight = myGraph.Graph::Dijkstra(0,3);
-    for(auto stop:flight)
-    {
-        cout<<stop<<endl;
-    }
-    return 0;
+    // vector<unsigned> flight = myGraph.Graph::Dijkstra(0,3);
+    // for(auto stop:flight)
+    // {
+    //     cout<<stop<<endl;
+    // }
+    // return 0;
 
     // vector<unsigned> test;
     // test.resize(3);

@@ -90,11 +90,11 @@ bool Readfile::isNumber(const string& str)
     @param airport_vec The vector that stores every Airport object
     @param filename The name of the input file
 **/
-void Readfile::readfile_airport(vector<Airport> & airport_vec)
+void Readfile::readfile_airport(vector<Airport> & airport_vec, string filename)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
-    newfile.open("./tests/airport_test.txt", ios::in);
+    newfile.open(filename, ios::in);
     if (newfile.is_open() == true)
     {
         string line;
@@ -117,11 +117,11 @@ void Readfile::readfile_airport(vector<Airport> & airport_vec)
     @param routes_vec The vector that stores every Route struct
     @param filename The name of the input file
 **/
-void Readfile::readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec)
+void Readfile::readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec, string filename)
 {
     // Open a new file to perform read operation line by line
     fstream newfile;
-    newfile.open("./tests/routes_test.txt", ios::in);
+    newfile.open(filename, ios::in);
     if (newfile.is_open() == true)
     {
         string line;

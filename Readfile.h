@@ -31,7 +31,7 @@ class Readfile
     public:
         Readfile();
         ~Readfile();
-        void readfile_airport(vector<Airport> & airport_vec);
-        void readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec);
+        void readfile_airport(vector<Airport> & airport_vec, string filename);
+        void readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec, string filename);
 };
 
