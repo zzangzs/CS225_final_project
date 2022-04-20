@@ -341,20 +341,54 @@ void Readfile::parse_correct_routes(string s, vector<Route*> & routes_vec, vecto
             else if (isNumber(substr) == 0)
             {
                 // Find the corresponding airport ID
+                if (source == "" || source == "\\N")
+                {
+                    // Not enough information to find the source aiport, discard the route
+                    route_valid = false;
+                    break;
+                }
+
                 if (source.length() == 3)
                 {
-                    string find = "\"" + source + "\"";
-                    route -> setStartID(iata_id[find]);
+                    string key = "\"" + source + "\"";
+                    if (iata_id.find(key) == iata_id.end())
+                    {
+                        // The source airport does not exist, discard the route
+                        route_valid = false;
+                        break;
+                    }
+                    else
+                    {
+                        route -> setStartID(iata_id[key]);
+                    }
                 }
                 else
                 {
-                    string find = "\"" + source + "\"";
-                    route -> setStartID(icao_id[find]);
+                    string key = "\"" + source + "\"";
+                    if (icao_id.find(key) == icao_id.end())
+                    {
+                        // The source airport does not exist, discard the route
+                        route_valid = false;
+                        break;
+                    }
+                    else
+                    {
+                        route -> setStartID(icao_id[key]);
+                    }
                 }
             }
             else
-            {   
-                route -> setStartID(id_change[std::stoul(substr)]);
+            {
+                if (id_change.find(std::stoul(substr)) == id_change.end())
+                {
+                    // The source airport does not exist, discard the route
+                    route_valid = false;
+                    break;
+                }
+                else
+                {
+                    route -> setStartID(id_change[std::stoul(substr)]);
+                }   
             }
         }
 
@@ -375,20 +409,54 @@ void Readfile::parse_correct_routes(string s, vector<Route*> & routes_vec, vecto
             else if (isNumber(substr) == 0)
             {
                 // Find the corresponding airport ID
+                if (dest == "" || dest == "\\N")
+                {
+                    // Not enough information to find the destination airport, discard the route
+                    route_valid = false;
+                    break;
+                }
+
                 if (dest.length() == 3)
                 {
-                    string find = "\"" + dest + "\"";
-                    route -> setEndID(iata_id[find]);
+                    string key = "\"" + dest + "\"";
+                    if (iata_id.find(key) == iata_id.end())
+                    {
+                        // The destination airport does not exist, discard the route
+                        route_valid = false;
+                        break;
+                    }
+                    else
+                    {
+                        route -> setEndID(iata_id[key]);
+                    }
                 }
                 else
                 {
-                    string find = "\"" + dest + "\"";
-                    route -> setEndID(icao_id[find]);
+                    string key = "\"" + dest + "\"";
+                    if (icao_id.find(key) == icao_id.end())
+                    {
+                        // The destination airport does not exist, discard the route
+                        route_valid = false;
+                        break;
+                    }
+                    else
+                    {
+                        route -> setEndID(icao_id[key]);
+                    }
                 }
             }
             else
             {
-                route -> setEndID(id_change[std::stoul(substr)]);
+                if (id_change.find(std::stoul(substr)) == id_change.end())
+                {
+                    // The destination airport does not exist, discard the route
+                    route_valid = false;
+                    break;
+                }
+                else
+                {
+                    route -> setEndID(id_change[std::stoul(substr)]);
+                }   
             }
         }
         count ++;

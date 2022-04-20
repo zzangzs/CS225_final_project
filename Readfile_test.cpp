@@ -3,7 +3,7 @@
 #include "Airport.h"
 // #include "Route.h"
 
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -20,8 +20,8 @@ int main()
     vector<Route> route;
 
     Readfile read = Readfile();
-    read.readfile_airport(airports, "./tests/airport_test.txt");
-    read.readfile_routes(routes, airports, "./tests/routes_test.txt");
+    read.readfile_airport(airports, "./data/airport.txt");
+    read.readfile_routes(routes, airports, "./data/route.txt");
 
     for (unsigned int i = 0; i < routes.size(); i ++)
     {
@@ -49,6 +49,5 @@ int main()
         cout << route[j].getDist() << endl;
     }
     
-
     return 0;
 }
