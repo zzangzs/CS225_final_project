@@ -174,9 +174,18 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     return path;
 }
 
-void MatrixMult (vector<vector<double> > & m1, vector<double> & m2, vector<double> & res)
+void MatrixMult (vector<vector<double>> & m1, vector<double> & m2, vector<double> & res)
 {
-    
+    /** Matrix-Vector multiplication **/
+    for (unsigned int i = 0; i < res.size(); i ++)
+    {
+        double result_row = 0;
+        for (unsigned int j = 0; j < m2.size(); j ++)
+        {
+            result_row = result_row + m1[i][j] * m2[j];
+        }
+        res[i] = result_row;
+    }
 }
 
 vector<unsigned> Graph::PageRank(int numIterations=100) const
