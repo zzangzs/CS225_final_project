@@ -75,8 +75,8 @@ int Graph::BFS()
 {
     vector<bool> visited;
     visited.resize(numAirports, false);
-    int count;
-    for(int i = 0 ; i < numAirports ; i++){
+    int count = 0;
+    for(unsigned int i = 0 ; i < numAirports ; i++){
         if(visited[i] == false){
             BFS(&visited, i);
             count++;
@@ -97,7 +97,7 @@ void Graph::BFS(vector<bool>* visited, int start_idx)
         cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<endl;
         cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<endl;
         q.pop();
-        for(int i = 0 ; i < numAirports ; i++){
+        for(unsigned int i = 0 ; i < numAirports ; i++){
             if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
                 (*visited)[i] = true;           //set to visited
                 q.push(i);                      //add to queue
@@ -173,6 +173,8 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
 
     return path;
 }
+
+/*
 vector<double> MatrixMult (vector<vector<double> > & m1, vector<vector<double> > & m2)
 {
     
@@ -237,3 +239,4 @@ vector<unsigned> Graph::PageRank(int numIterations=100) const
         
     return v;
 }
+*/
