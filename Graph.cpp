@@ -174,8 +174,7 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     return path;
 }
 
-/*
-vector<double> MatrixMult (vector<vector<double> > & m1, vector<vector<double> > & m2)
+void MatrixMult (vector<vector<double> > & m1, vector<double> & m2, vector<double> & res)
 {
     
 }
@@ -188,19 +187,20 @@ vector<unsigned> Graph::PageRank(int numIterations=100) const
     std::mt19937 rng(dev());
     std::uniform_int_distribution<uint32_t> udist;
 
-    vector<vector<double> > v;
+    vector<double> v;
     double sum = 0;
+    vector<double> res(numAirports);
 
     for(size_t i = 0; i < numAirports ; i++)
     {
         double rand = udist(rng)*1.0/UINT32_MAX;
         sum += rand;
-        v[i].push_back(rand);
+        v.push_back(rand);
     }
 
     for(size_t i = 0; i < numAirports ; i++)
     {
-        v[i][0] = v[i][0]/sum;
+        v[i] = v[i] / sum;
     }
 
     vector<double> PR(numAirports, 1);
@@ -234,9 +234,10 @@ vector<unsigned> Graph::PageRank(int numIterations=100) const
     }
     for (int i = 0; i < numIterations; i++)
     {
-
+        MatrixMult(M, v, res);
+        v = res;
     }
-        
-    return v;
+    vector<unsigned> Rank(numAirports,0);
+
+    return Rank;
 }
-*/
