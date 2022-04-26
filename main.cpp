@@ -57,7 +57,7 @@ int main()
 
     Graph myGraph(routes,airports);
 
-    flight = myGraph.Dijkstra(0,1);
+    flight = myGraph.Dijkstra(100,110);
     for(auto stop:flight)
     {
         cout<<stop<<endl;
