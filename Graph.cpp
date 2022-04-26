@@ -75,8 +75,8 @@ int Graph::BFS()
 {
     vector<bool> visited;
     visited.resize(numAirports, false);
-    int count;
-    for(int i = 0 ; i < numAirports ; i++){
+    int count = 0;
+    for(unsigned int i = 0 ; i < numAirports ; i++){
         if(visited[i] == false){
             BFS(&visited, i);
             count++;
@@ -97,7 +97,7 @@ void Graph::BFS(vector<bool>* visited, int start_idx)
         cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<endl;
         cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<endl;
         q.pop();
-        for(int i = 0 ; i < numAirports ; i++){
+        for(unsigned int i = 0 ; i < numAirports ; i++){
             if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
                 (*visited)[i] = true;           //set to visited
                 q.push(i);                      //add to queue
@@ -174,9 +174,18 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     return path;
 }
 
-void MatrixMult (vector<vector<double> > & m1, vector<double> & m2, vector<double> & res)
+void MatrixMult (vector<vector<double>> & m1, vector<double> & m2, vector<double> & res)
 {
-    
+    /** Matrix-Vector multiplication **/
+    for (unsigned int i = 0; i < res.size(); i ++)
+    {
+        double result_row = 0;
+        for (unsigned int j = 0; j < m2.size(); j ++)
+        {
+            result_row = result_row + m1[i][j] * m2[j];
+        }
+        res[i] = result_row;
+    }
 }
 
 vector<unsigned> Graph::PageRank(int numIterations=100) const
