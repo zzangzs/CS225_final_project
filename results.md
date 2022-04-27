@@ -1,7 +1,8 @@
 # yuli9-yixiaof2-nankang2-zisuj2
 Final project for team: dhrev
 
-Dijkstra’s Algorithm:
+## Dijkstra’s Algorithm:
+
 We use Dijkstra’s Algorithm to find the shortest path from one airport to the other. When a user enters the departure and destination airports’ ID, it will return the shortest path in terms of a vector containing airports’ ID, and the total distance will be renewed. If there is no path between, it should return a size one vector with 999999, and the total distance is 0.
 
 To test Dijkstra’s Algorithm, we used a small dataset. The dataset can be found at tests->Dij_test_Airport1.txt, Dij_test_Route1.txt. Here is the graph representing this dataset:
