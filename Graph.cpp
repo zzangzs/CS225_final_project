@@ -3,13 +3,14 @@
  *
  * @author DHREV: ZJ KN
  */
-#include <bits/stdc++.h> //for priority queue
+//#include <bits/stdc++.h> //for priority queue
 #include "Graph.h"
 #include "./cs225/HSLAPixel.h"
 #include "./cs225/PNG.h"
 #include <map>
 #include <stack>
 #include <queue>
+#include "Graph.h"
 
 using std::map;
 using std::vector;
@@ -29,7 +30,6 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports, cs2
     airports_ptr_ = &airports;
     routes_ptr_ = &routes;
 
-    //unsigned numAirports = airports.size();
     numAirports = airports.size();
     unsigned numRoutes = routes.size();
 
@@ -42,7 +42,7 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports, cs2
         routesMap_[make_pair(route.getStartID(),route.getEndID())]=route.getDist();
     }
     
-    // build adjacency list
+    // build adjacency matrix
     for (size_t row = 0; row < numAirports; row++)
     {
         for (size_t col = 0; col < numAirports; col++)
@@ -59,7 +59,7 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports, cs2
         }  
     }
 }
-
+// test Adjacent Matrix
 void Graph::printGraph() const
 {  
     for (size_t i = 0; i < airports_ptr_->size(); i++)
@@ -83,8 +83,8 @@ int Graph::BFS()
 {
     vector<bool> visited;
     visited.resize(numAirports, false);
-    int count = 0; // modify 'int count;' to 'int count = 0'
-    for(unsigned int i = 0 ; i < numAirports ; i++){ // Modify int to unsigned int
+    int count = 0;
+    for(unsigned int i = 0 ; i < numAirports ; i++){
         if(visited[i] == false){
             BFS(&visited, i);
             count++;
@@ -100,12 +100,11 @@ void Graph::BFS(vector<bool>* visited, int start_idx)
     q.push(start_idx);
     while(!q.empty()){
         int v = q.front();
-        std::cout<<"Airport name: "<<airports_ptr_->at(v).getName()<<std::endl;
-        std::cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<std::endl;
-        std::cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<std::endl;
-        std::cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<std::endl;
+        cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<endl;
+        cout<<"Airport name: "<<airports_ptr_->at(v).getName()<<endl;
+        cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<endl;
+        cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<endl;
         drawPoint(airports_ptr_->at(v));
-
         q.pop();
         for(unsigned int i = 0 ; i < numAirports ; i++){
             if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
@@ -203,4 +202,80 @@ void Graph::drawPoint(Airport airport){
         }
     }
     //base.writeToFile("test_output.png");
+}
+void MatrixMult (vector<vector<double>> & m1, vector<double> & m2, vector<double> & res)
+{
+    /** Matrix-Vector multiplication **/
+    for (unsigned int i = 0; i < res.size(); i ++)
+    {
+        double result_row = 0;
+        for (unsigned int j = 0; j < m2.size(); j ++)
+        {
+            result_row = result_row + m1[i][j] * m2[j];
+        }
+        res[i] = result_row;
+    }
+}
+
+vector<unsigned> Graph::PageRank(int numIterations=100) const
+{
+    unsigned N = numAirports;
+
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<uint32_t> udist;
+
+    vector<double> v;
+    double sum = 0;
+    vector<double> res(numAirports);
+
+    for(size_t i = 0; i < numAirports ; i++)
+    {
+        double rand = udist(rng)*1.0/UINT32_MAX;
+        sum += rand;
+        v.push_back(rand);
+    }
+
+    for(size_t i = 0; i < numAirports ; i++)
+    {
+        v[i] = v[i] / sum;
+    }
+
+    vector<double> PR(numAirports, 1);
+
+    for (size_t row = 0; row < numAirports; row++)
+    {
+        int vote = 0;
+
+        for (size_t col = 0; col < numAirports; col++)
+        {
+            if(adj_[row][col]>0)
+            {
+                vote++;
+            }
+           
+        }
+
+        PR[row] = 1/vote;
+    }
+    vector<vector<double> > M;
+    for (size_t row = 0; row < numAirports; row++)
+    {
+        for (size_t col = 0; col < numAirports; col++)
+        {
+            if (adj_[col][row]>0)
+            {
+                M[row][col] = PR[row];
+            }
+           
+        }
+    }
+    for (int i = 0; i < numIterations; i++)
+    {
+        MatrixMult(M, v, res);
+        v = res;
+    }
+    vector<unsigned> Rank(numAirports,0);
+
+    return Rank;
 }

@@ -29,7 +29,12 @@ Readfile::~Readfile()
 }
 
 
-/* Helper function converting degrees to radians */
+/** 
+    Helper function converting degrees to radians.
+
+    @param degree Input degree value
+    @return The radian value of the corresponding degree value
+**/
 long double Readfile::toRadians(const long double degree)
 {
     long double one_deg = (M_PI) / 180;
@@ -37,11 +42,18 @@ long double Readfile::toRadians(const long double degree)
 }
 
 
+/**
+    The helper function calculating distance between two points on Earth.
+
+    @param lat1 The latitude of the first point
+    @param long1 The longitude of the first point
+    @param lat2 The latitude of the second point
+    @param long2 The longitude of the second point
+    @return The acutal distance between the two points in km.
+**/
 long double Readfile::distance(long double lat1, long double long1, long double lat2, long double long2)
 {
-    // Convert the latitudes
-    // and longitudes
-    // from degree to radians.
+    /* Convert the latitudes and longitudes from degree to radians. */
     lat1 = toRadians(lat1);
     long1 = toRadians(long1);
     lat2 = toRadians(lat2);
@@ -55,9 +67,10 @@ long double Readfile::distance(long double lat1, long double long1, long double 
  
     ans = 2 * asin(sqrt(ans));
  
-    // Radius of Earth in
-    // Kilometers, R = 6371
-    // Use R = 3956 for miles
+    /** 
+        Radius of Earth in Kilometers, R = 6371
+        Use R = 3956 for miles
+    **/
     long double R = 6371;
      
     // Calculate the result
@@ -80,6 +93,8 @@ bool Readfile::isNumber(const string& str)
     }
     return true;
 }
+
+
 
 /**
     The readfile_airport function accepts a vector storing Airport objects, and 
@@ -341,20 +356,54 @@ void Readfile::parse_correct_routes(string s, vector<Route*> & routes_vec, vecto
             else if (isNumber(substr) == 0)
             {
                 // Find the corresponding airport ID
+                if (source == "" || source == "\\N")
+                {
+                    // Not enough information to find the source aiport, discard the route
+                    route_valid = false;
+                    break;
+                }
+
                 if (source.length() == 3)
                 {
-                    string find = "\"" + source + "\"";
-                    route -> setStartID(iata_id[find]);
+                    string key = "\"" + source + "\"";
+                    if (iata_id.find(key) == iata_id.end())
+                    {
+                        // The source airport does not exist, discard the route
+                        route_valid = false;
+                        break;
+                    }
+                    else
+                    {
+                        route -> setStartID(iata_id[key]);
+                    }
                 }
                 else
                 {
-                    string find = "\"" + source + "\"";
-                    route -> setStartID(icao_id[find]);
+                    string key = "\"" + source + "\"";
+                    if (icao_id.find(key) == icao_id.end())
+                    {
+                        // The source airport does not exist, discard the route
+                        route_valid = false;
+                        break;
+                    }
+                    else
+                    {
+                        route -> setStartID(icao_id[key]);
+                    }
                 }
             }
             else
-            {   
-                route -> setStartID(id_change[std::stoul(substr)]);
+            {
+                if (id_change.find(std::stoul(substr)) == id_change.end())
+                {
+                    // The source airport does not exist, discard the route
+                    route_valid = false;
+                    break;
+                }
+                else
+                {
+                    route -> setStartID(id_change[std::stoul(substr)]);
+                }   
             }
         }
 
@@ -375,20 +424,54 @@ void Readfile::parse_correct_routes(string s, vector<Route*> & routes_vec, vecto
             else if (isNumber(substr) == 0)
             {
                 // Find the corresponding airport ID
+                if (dest == "" || dest == "\\N")
+                {
+                    // Not enough information to find the destination airport, discard the route
+                    route_valid = false;
+                    break;
+                }
+
                 if (dest.length() == 3)
                 {
-                    string find = "\"" + dest + "\"";
-                    route -> setEndID(iata_id[find]);
+                    string key = "\"" + dest + "\"";
+                    if (iata_id.find(key) == iata_id.end())
+                    {
+                        // The destination airport does not exist, discard the route
+                        route_valid = false;
+                        break;
+                    }
+                    else
+                    {
+                        route -> setEndID(iata_id[key]);
+                    }
                 }
                 else
                 {
-                    string find = "\"" + dest + "\"";
-                    route -> setEndID(icao_id[find]);
+                    string key = "\"" + dest + "\"";
+                    if (icao_id.find(key) == icao_id.end())
+                    {
+                        // The destination airport does not exist, discard the route
+                        route_valid = false;
+                        break;
+                    }
+                    else
+                    {
+                        route -> setEndID(icao_id[key]);
+                    }
                 }
             }
             else
             {
-                route -> setEndID(id_change[std::stoul(substr)]);
+                if (id_change.find(std::stoul(substr)) == id_change.end())
+                {
+                    // The destination airport does not exist, discard the route
+                    route_valid = false;
+                    break;
+                }
+                else
+                {
+                    route -> setEndID(id_change[std::stoul(substr)]);
+                }   
             }
         }
         count ++;
@@ -397,7 +480,6 @@ void Readfile::parse_correct_routes(string s, vector<Route*> & routes_vec, vecto
     // Determine whether the route should be stored
     if (route_valid == true)
     {
-        // cout << "Push_route" << endl;
         routes_vec.push_back(route);
 
         // Calculate distance between start airport and destination airport

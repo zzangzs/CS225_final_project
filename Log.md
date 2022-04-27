@@ -102,3 +102,32 @@ No major problem.
 1. Go further on PageRank algorithm.
 2. Refine the Graph class (including Dijkstra's algorithm).
 3. Start to come up with methods for graph visualization. 
+
+## 2022/4/19 Week 4
+author: KN
+
+### What goals you had set for the week and whether they were accomplished or not
+1. Finish test case for Dijkstra's algorithm. Accomplished.
+2. Fix bugs in Readfile.cpp. Accomplished.
+3. Start working on PageRank and graph visualization. Started.
+
+### What specific tasks each member of your team accomplished in the week
+**Nan Kang : Refine Dijkstra's algorithm and test**
+1. Create small-size sample to present the output of Dijkstra's algorithm implemented on our graph.
+
+**Yixiao Fang: Update the readfile class and help with implementing the Dijkstra's algorithm**
+1. Edit Readfile.cpp to fix some errors.
+
+**Zisu Jiang: Research on PageRank**
+1. Start to implement the PageRank algorithm.
+
+**Yu Li: Research on Visualization**
+1. Start to implement graph visualization.
+
+### What problems you encountered (if any) that prevented you from meeting your goals
+The running time of Dijkstra's algorithm is too long since the dataset is very big.
+
+### What you plan to accomplish next week
+1. Go further on PageRank algorithm.
+2. Go further on Graph Visualization.
+3. Find a way to shorten the running time of Dijkstra. May reduce dataset's size.

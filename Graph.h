@@ -8,12 +8,18 @@
 #include "Airport.h"
 #include "Route.h"
 
+#include <map>
+#include <stack>
+#include <queue>
 #include <iostream>
 #include <vector>
 #include <string>
 #include "cs225/HSLAPixel.h"
 #include "cs225/PNG.h"
 
+//#include <bits/stdc++.h> // Dijkstra
+#include <random> // std::random_device, std::mt19937
+#include <stdint.h> // UINT32_MAX
 
 using std::vector;
 using std::pair;
@@ -23,7 +29,7 @@ using std::string;
 class Graph
 {
     private:
-        // adjacency list: represent the graph itself; may be replaced by routesMap_
+        // adjacency matrix: represent the graph itself; may be replaced by routesMap_
         vector<vector<double> > adj_;
         // add size of airport
         unsigned numAirports;
@@ -49,12 +55,10 @@ class Graph
 
         vector<unsigned> Dijkstra(unsigned int departure, unsigned int destination);
 
-        // BFS later
         void printGraph() const;
-
-        //void printFlight() const;
 
         int BFS();
 
         void drawPoint(Airport airport);
+        vector<unsigned> PageRank(int numIterations) const;
 };

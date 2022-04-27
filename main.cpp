@@ -22,7 +22,7 @@ int main()
     vector<Route*> routes_ptrs;
     //string filename = "./tests/airport_test.txt";
     Readfile read_test = Readfile();
-    read_test.readfile_airport(airports, "./tests/airports_test.txt");
+    read_test.readfile_airport(airports, "./tests/airport_test.txt");
     read_test.readfile_routes(routes_ptrs, airports, "./tests/routes_test.txt");
     
     for (auto & ptr : routes_ptrs)
@@ -47,8 +47,8 @@ int main()
     flight.clear();
 
     Readfile read = Readfile();
-    read.readfile_airport(airports, "./data/airports.txt");
-    read.readfile_routes(routes_ptrs, airports, "./data/routes.txt");
+    read.readfile_airport(airports, "./data/airport.txt");
+    read.readfile_routes(routes_ptrs, airports, "./data/route.txt");
 
     for (auto & ptr : routes_ptrs)
     {
@@ -57,7 +57,7 @@ int main()
 
     Graph myGraph(routes,airports);
 
-    flight = myGraph.Dijkstra(3194,3629);
+    flight = myGraph.Dijkstra(0,1);
     for(auto stop:flight)
     {
         cout<<stop<<endl;
