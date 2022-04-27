@@ -29,7 +29,12 @@ Readfile::~Readfile()
 }
 
 
-/* Helper function converting degrees to radians */
+/** 
+    Helper function converting degrees to radians.
+
+    @param degree Input degree value
+    @return The radian value of the corresponding degree value
+**/
 long double Readfile::toRadians(const long double degree)
 {
     long double one_deg = (M_PI) / 180;
@@ -37,11 +42,18 @@ long double Readfile::toRadians(const long double degree)
 }
 
 
+/**
+    The helper function calculating distance between two points on Earth.
+
+    @param lat1 The latitude of the first point
+    @param long1 The longitude of the first point
+    @param lat2 The latitude of the second point
+    @param long2 The longitude of the second point
+    @return The acutal distance between the two points in km.
+**/
 long double Readfile::distance(long double lat1, long double long1, long double lat2, long double long2)
 {
-    // Convert the latitudes
-    // and longitudes
-    // from degree to radians.
+    /* Convert the latitudes and longitudes from degree to radians. */
     lat1 = toRadians(lat1);
     long1 = toRadians(long1);
     lat2 = toRadians(lat2);
@@ -55,9 +67,10 @@ long double Readfile::distance(long double lat1, long double long1, long double 
  
     ans = 2 * asin(sqrt(ans));
  
-    // Radius of Earth in
-    // Kilometers, R = 6371
-    // Use R = 3956 for miles
+    /** 
+        Radius of Earth in Kilometers, R = 6371
+        Use R = 3956 for miles
+    **/
     long double R = 6371;
      
     // Calculate the result
@@ -80,6 +93,8 @@ bool Readfile::isNumber(const string& str)
     }
     return true;
 }
+
+
 
 /**
     The readfile_airport function accepts a vector storing Airport objects, and 
@@ -465,7 +480,6 @@ void Readfile::parse_correct_routes(string s, vector<Route*> & routes_vec, vecto
     // Determine whether the route should be stored
     if (route_valid == true)
     {
-        // cout << "Push_route" << endl;
         routes_vec.push_back(route);
 
         // Calculate distance between start airport and destination airport
