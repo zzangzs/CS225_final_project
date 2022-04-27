@@ -28,26 +28,27 @@ int main()
         route.push_back(*(routes[i]));
     }
     
-    for (unsigned int i = 0; i < airports.size(); i ++)
-    {
-        cout << airports[i].getID() << " ";
-        cout << airports[i].getName() << " ";
-        cout << airports[i].getCity() << " ";
-        cout << airports[i].getIATA() << " ";
-        cout << airports[i].getICAO() << " ";
-        cout << airports[i].getCountry() << " ";
-        cout << airports[i].getLatitude() << " ";
-        cout << airports[i].getLongitude() << endl;
-    }
-    cout << "\n";
+    // for (unsigned int i = 0; i < airports.size(); i ++)
+    // {
+    //     cout << airports[i].getID() << " ";
+    //     cout << airports[i].getName() << " ";
+    //     cout << airports[i].getCity() << " ";
+    //     cout << airports[i].getIATA() << " ";
+    //     cout << airports[i].getICAO() << " ";
+    //     cout << airports[i].getCountry() << " ";
+    //     cout << airports[i].getLatitude() << " ";
+    //     cout << airports[i].getLongitude() << endl;
+    // }
+    // cout << "\n";
 
     
-    for (unsigned int j = 0; j < route.size(); j ++)
-    {
-        cout << route[j].getStartID() << " ";
-        cout << route[j].getEndID() << " ";
-        cout << route[j].getDist() << endl;
-    }
+    // for (unsigned int j = 0; j < route.size(); j ++)
+    // {
+    //     cout << route[j].getStartID() << " ";
+    //     cout << route[j].getEndID() << " ";
+    //     cout << route[j].getDist() << endl;
+    // }
+    
     
     return 0;
 }
