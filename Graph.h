@@ -10,9 +10,14 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+#include "cs225/HSLAPixel.h"
+#include "cs225/PNG.h"
+
 
 using std::vector;
 using std::pair;
+using std::string;
 
 // Directed Weighted Graph
 class Graph
@@ -26,7 +31,11 @@ class Graph
         const vector<Airport>* airports_ptr_;
         const vector<Route>* routes_ptr_;
 
+        cs225::PNG base;
+
         void BFS(vector<bool> * visited, int start_idx);
+
+        // void drawPoint(Airport airport);
 
 
 
@@ -36,7 +45,7 @@ class Graph
         Graph();
 
         // customized constructor
-        Graph(const vector<Route> & routes, const vector<Airport> & airports);
+        Graph(const vector<Route> & routes, const vector<Airport> & airports, cs225::PNG & png);
 
         vector<unsigned> Dijkstra(unsigned int departure, unsigned int destination);
 
@@ -46,4 +55,6 @@ class Graph
         //void printFlight() const;
 
         int BFS();
+
+        void drawPoint(Airport airport);
 };

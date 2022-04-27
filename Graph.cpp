@@ -3,8 +3,10 @@
  *
  * @author DHREV: ZJ KN
  */
-// #include <bits/stdc++.h> //for priority queue
+#include <bits/stdc++.h> //for priority queue
 #include "Graph.h"
+#include "./cs225/HSLAPixel.h"
+#include "./cs225/PNG.h"
 #include <map>
 #include <stack>
 #include <queue>
@@ -21,8 +23,9 @@ Graph::Graph(){
 
 }
 
-Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
+Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports, cs225::PNG & png)
 {
+    base = png;
     airports_ptr_ = &airports;
     routes_ptr_ = &routes;
 
@@ -101,6 +104,8 @@ void Graph::BFS(vector<bool>* visited, int start_idx)
         std::cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<std::endl;
         std::cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<std::endl;
         std::cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<std::endl;
+        drawPoint(airports_ptr_->at(v));
+
         q.pop();
         for(unsigned int i = 0 ; i < numAirports ; i++){
             if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
@@ -179,3 +184,23 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     return path;
 }
 
+void Graph::drawPoint(Airport airport){
+    long double lat = airport.getLatitude();
+    long double lon = airport.getLongitude();
+    int width = base.width();
+    int height = base.height();
+    int middle_x = width/2;
+    int middle_y = height/2;
+    unsigned int x = (int)(middle_x + lon*(width/360));
+    unsigned int y = (int)(middle_y - lat*(height/180));
+    for(int i = 0; i < 10; i ++){
+        for(int j = 0; j < 10; j++){
+            cs225::HSLAPixel & pixel = base.getPixel(x+(i-5), y+(j-5));
+            pixel.h = 0;
+            pixel.s = 0;
+            pixel.l = 0;
+            pixel.a = 0;
+        }
+    }
+    //base.writeToFile("test_output.png");
+}
