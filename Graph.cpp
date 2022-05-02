@@ -11,13 +11,15 @@ using std::pair;
 using std::cout;
 using std::endl;
 using std::priority_queue;
+using std::stable_sort;
+using std::iota;
 
 Graph::Graph(){
 
 
 }
 
-Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
+Graph::Graph(const vector<Route> & routes, vector<Airport> & airports)
 {
     airports_ptr_ = &airports;
     routes_ptr_ = &routes;
@@ -51,6 +53,21 @@ Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports)
         }  
     }
 }
+
+vector<vector<double> > Graph::transpose(vector<vector<double> > & V2D) {
+    vector<vector<double> > temp( V2D.size(), vector<double> (V2D.size()) );
+    for (size_t i = 0; i < V2D.size(); i++)
+    {
+        for (size_t j = 0; j < V2D[i].size(); j++)
+        {
+            temp[i][j] = V2D[j][i];
+        }
+        
+    }
+    return temp;
+}
+
+
 // test Adjacent Matrix
 void Graph::printGraph() const
 {  
@@ -183,70 +200,168 @@ void MatrixMult (vector<vector<double>> & m1, vector<double> & m2, vector<double
         for (unsigned int j = 0; j < m2.size(); j ++)
         {
             result_row = result_row + m1[i][j] * m2[j];
+            
         }
         res[i] = result_row;
+        cout<<"res"<<i<<" is "<<result_row<<endl;
     }
 }
 
-vector<unsigned> Graph::PageRank(int numIterations=100) const
+// Descending sort the vector while keep track of the original indexes
+vector<size_t> sort_indexes(const vector<double> & v) {
+
+  vector<size_t> idx(v.size());
+  iota(idx.begin(), idx.end(), 0);
+
+  stable_sort(idx.begin(), idx.end(),
+       [&v](size_t i1, size_t i2) {return v[i1] > v[i2];});
+
+  return idx;
+}
+
+// Simplified version of PageRank
+// top is default 10
+vector<size_t> Graph::simplifiedPageRank(int top) {
+    vector<size_t> Rank;
+
+    double initial_PR = 1.0/numAirports;
+    vector<double> PR(numAirports,initial_PR);
+    vector<double> L(numAirports,0);
+
+    for (size_t row = 0; row < numAirports; row++)
+    {
+        int num_zeros = count(adj_[row].begin(), adj_[row].end(), 0);
+        L[row] = numAirports-num_zeros;
+    }
+
+    // cout<<"Outgoing links: ";
+    // printVec(L);
+    // cout<<endl;
+
+
+    for (size_t i = 0; i < PR.size(); i++)
+    {
+        double income = 0;
+        for (size_t j = 0; j < PR.size(); j++)
+        {
+            if (adj_[j][i]>0)
+            {
+                income += initial_PR/L[j];
+            }
+            
+        }
+        PR[i] = income;
+        
+    }
+    // cout<<"PageRank: ";
+    // printVec(PR);
+    // cout<<endl;
+    int count = 0;
+    for (auto i: sort_indexes(PR)) {
+        if (count==top)
+        {
+            break;
+        }
+        Rank.push_back(i);
+        count++;
+    }
+
+    return Rank;
+    
+}
+
+
+vector<size_t> Graph::PageRank(int numIterations)
 {
-    unsigned N = numAirports;
+    vector<size_t> Rank;
 
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<uint32_t> udist;
+    // unsigned N = numAirports;
 
-    vector<double> v;
-    double sum = 0;
-    vector<double> res(numAirports);
+    // std::random_device dev;
+    // std::mt19937 rng(dev());
+    // std::uniform_int_distribution<uint32_t> udist;
 
-    for(size_t i = 0; i < numAirports ; i++)
-    {
-        double rand = udist(rng)*1.0/UINT32_MAX;
-        sum += rand;
-        v.push_back(rand);
-    }
+    // vector<double> v;
+    // double sum = 0;
+    // vector<double> res(5);
 
-    for(size_t i = 0; i < numAirports ; i++)
-    {
-        v[i] = v[i] / sum;
-    }
+    // for(size_t i = 0; i < 5 ; i++)
+    // {
+    //     double rand = udist(rng)*1.0/UINT32_MAX;
+    //     sum += rand;
+    //     v.push_back(rand);
+    // }
+    // cout<<"Original v = "<<endl;
+    // printVec(v);
 
-    vector<double> PR(numAirports, 1);
+    // for(size_t i = 0; i < 5 ; i++)
+    // {
+    //     v[i] = v[i] / sum;
+    // }
+    // cout<<"Normalized v = "<<endl;
+    // printVec(v);
 
-    for (size_t row = 0; row < numAirports; row++)
-    {
-        int vote = 0;
+    // vector<double> PR(numAirports, 1);
 
-        for (size_t col = 0; col < numAirports; col++)
-        {
-            if(adj_[row][col]>0)
-            {
-                vote++;
-            }
+    // for (size_t row = 0; row < numAirports; row++)
+    // {
+    //     int vote = 0;
+
+    //     for (size_t col = 0; col < numAirports; col++)
+    //     {
+    //         if(adj_[row][col]>0)
+    //         {
+    //             vote++;
+    //         }
            
-        }
+    //     }
 
-        PR[row] = 1/vote;
-    }
-    vector<vector<double> > M;
-    for (size_t row = 0; row < numAirports; row++)
-    {
-        for (size_t col = 0; col < numAirports; col++)
-        {
-            if (adj_[col][row]>0)
-            {
-                M[row][col] = PR[row];
-            }
+    //     if (vote!=0) PR[row] = 1.0/vote;
+    // }
+
+    // cout<<"PR = "<<endl;
+    // printVec(PR);
+
+    // vector<vector<double> > M(numAirports,vector<double>(numAirports,0));
+
+    // for (size_t col = 0; col < numAirports; col++)
+    // {
+    //     for (size_t row = 0; row < numAirports; row++)
+    //     {
+    //         if (adj_[col][row]>0)
+    //         {
+    //             M[row][col] = PR[col];
+    //         }
            
-        }
-    }
-    for (int i = 0; i < numIterations; i++)
-    {
-        MatrixMult(M, v, res);
-        v = res;
-    }
-    vector<unsigned> Rank(numAirports,0);
+    //     }
+    // }
+    // cout<<"M = "<<endl;
+    // for (size_t i = 0; i < M.size(); i++)
+    // {
+    //     printVec(M[i]);
+    //     cout<<endl;
+        
+    // }
+
+    // // vector<vector<double> > M_hat
+    // // {
+    // //     {0, 0, 0, 0, 1},
+    // //     {0.5, 0, 0, 0, 0},
+    // //     {0.5, 0, 0, 0, 0},
+    // //     {0, 1, 0.5, 0, 0},
+    // //     {0, 0, 0.5, 1, 0}
+    // // };
+
+    // for (int i = 0; i < numIterations; i++)
+    // {
+    //     MatrixMult(M, v, res);
+    //     v = res;
+    // }
+    // cout<<"Final v = "<<endl;
+    // printVec(v);
+    // for (auto i: sort_indexes(v)) {
+    //     Rank.push_back(i);
+    // }
 
     return Rank;
 }
