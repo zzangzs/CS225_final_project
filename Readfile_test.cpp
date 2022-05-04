@@ -19,14 +19,27 @@ int main()
     vector<Route*> routes;
     vector<Route> route;
 
+    vector<int> airports_id;
+    string airport_name_1 = "Baie Comeau Airport";
+    string airport_name_2 = "CFB Bagotville";
+    string airport_1 = "\"" + airport_name_1 + "\"";
+    string airport_2 = "\"" + airport_name_2 + "\"";
+
     Readfile read = Readfile();
-    read.readfile_airport(airports, "./data/airport.txt");
+    airports_id = read.readfile_airport(airports, "./data/airport.txt", airport_1, airport_2);
     read.readfile_routes(routes, airports, "./data/route.txt");
 
     for (unsigned int i = 0; i < routes.size(); i ++)
     {
         route.push_back(*(routes[i]));
     }
+
+    cout << airports_id[0] << endl;
+    cout << airports[airports_id[0]].getName() << endl;
+    cout << airports[airports_id[0]].getCity() << endl;
+    cout << airports_id[1] << endl;
+    cout << airports[airports_id[1]].getName() << endl;
+    cout << airports[airports_id[1]].getCity() << endl;
     
     // for (unsigned int i = 0; i < airports.size(); i ++)
     // {

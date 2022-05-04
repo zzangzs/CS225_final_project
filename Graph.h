@@ -8,7 +8,7 @@
  * @author Nan Kang
  * @author Yu Li
  * 
- * @date 2022-05-03
+ * @date 05/03/2022
  */
 #pragma once
 
@@ -27,6 +27,7 @@
 
 using std::vector;
 using std::pair;
+using std::string;
 
 /**
  * Helper function to print vectors / 2d vectors
@@ -76,7 +77,11 @@ class Graph
         const vector<Airport>* airports_ptr_;
         const vector<Route>* routes_ptr_;
 
+        cs225::PNG base;
+
         void BFS(vector<bool> * visited, int start_idx);
+
+        void drawPoint(Airport airport);
 
     public:
         double total_dist;
@@ -100,6 +105,14 @@ class Graph
         void printGraph() const;
 
         int BFS();
+        
+        cs225::PNG getBasePic();
+
+        void draw_rank(vector<size_t> rk);
+        
+        void drawPoint(Airport airport, double h, double s, double l, double a);
+
+        void drawLine(vector<unsigned> path);
 
         /**
          * PageRank algorithm

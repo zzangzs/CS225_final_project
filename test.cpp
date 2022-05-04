@@ -1,19 +1,40 @@
 #include "Graph.h"
+#include "Airport.h"
+#include "Route.h"
+#include "Readfile.h"
+#include "cs225/PNG.h"
+#include "cs225/HSLAPixel.h"
+#include <vector>
+#include <iostream>
 
-int main(){
-    vector<Route> routes;
+//#include "../cs225/catch/catch.hpp"
+
+int main()
+{
+    
+    // Initialize the airport vector
     vector<Airport> airports;
-    for(int i = 0 ; i < 3 ; i++){
-        Route route(0,0,0);
-        route.setStartID(i);
-        route.setEndID((i+1)%3);
-        route.setDist(5 + i);
-        routes.push_back(route);
-        //airports.push_back(Airport());
-        string name = "Tdfnri";
-        Airport a(name, "U.S.", "Champaign", i, 100, 200);
-        airports.push_back(a);
+
+    // Initialize the routes vector
+    vector<Route> routes;
+    vector<Route*> routes_ptrs;
+    Readfile read = Readfile();
+    read.readfile_airport(airports, "./data/airport.txt");
+    read.readfile_routes(routes_ptrs, airports, "./data/route.txt");
+
+    for (auto & ptr : routes_ptrs)
+    {
+        routes.push_back(*ptr);
     }
-    Graph g(routes, airports);
-    g.BFS();
+
+    cs225::PNG temp;
+    temp.readFromFile("original.png");
+    Graph myGraph(routes,airports,temp);
+    myGraph.BFS();
+    std::vector<size_t> rk = myGraph.simplifiedPageRank(10);
+    std::vector<unsigned> path = {(unsigned int)rk[0],(unsigned int)rk[1],(unsigned int)rk[2], (unsigned int)rk[3]};
+    myGraph.draw_rank(rk);
+    myGraph.drawLine(path);
+    cs225::PNG output = myGraph.getBasePic();
+    output.writeToFile("test_output.png");
 }

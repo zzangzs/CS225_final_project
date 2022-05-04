@@ -10,7 +10,15 @@
  * 
  * @date 2022-05-03
  */
+//#include <bits/stdc++.h> //for priority queue
 #include "Graph.h"
+#include "./cs225/HSLAPixel.h"
+#include "./cs225/PNG.h"
+#include <map>
+#include <stack>
+#include <queue>
+#include "Graph.h"
+#include <cmath>
 
 using std::priority_queue;
 using std::map;
@@ -87,10 +95,11 @@ void Graph::BFS(vector<bool>* visited, int start_idx)
     q.push(start_idx);
     while(!q.empty()){
         int v = q.front();
-        cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<endl;
-        cout<<"Airport name: "<<airports_ptr_->at(v).getName()<<endl;
-        cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<endl;
-        cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<endl;
+        // cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<endl;
+        // cout<<"Airport name: "<<airports_ptr_->at(v).getName()<<endl;
+        // cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<endl;
+        // cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<endl;
+        drawPoint(airports_ptr_->at(v), 0, 0, 0, 1);
         q.pop();
         for(unsigned int i = 0 ; i < numAirports ; i++){
             if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
@@ -169,8 +178,79 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     return path;
 }
 
-// Descending sort the vector while keep track of the original indices
-vector<size_t> sort_indices(const vector<double> & v) {
+void Graph::drawPoint(Airport airport, double h, double s, double l, double a){
+    long double lat = airport.getLatitude();
+    long double lon = airport.getLongitude();
+    int width = base.width();
+    int height = base.height();
+    long double middle_x = width/2.0;
+    long double middle_y = height/2.0;
+    int x = floor(middle_x + lon*((double)width/360.0));
+    int y = floor(middle_y - lat*((double)height/180.0));
+    if(x > width - 2 || x < 2 || y > height - 2 || y < 2){
+        return;
+    }
+    for(int i = 0; i < 3; i ++){
+        for(int j = 0; j < 3; j++){
+            cs225::HSLAPixel & pixel = base.getPixel(x+(i-1), y+(j-1));
+            pixel.h = h;
+            pixel.s = s;
+            pixel.l = l;
+            pixel.a = a;
+        }
+    }
+}
+
+void Graph::draw_rank(vector<size_t> rk){
+    int size = rk.size();
+    cs225::PNG icon;
+    icon.readFromFile("airport3.png");
+    int w = icon.width();
+    int h = icon.height();
+    int icon_mid_x = floor(w/2);
+    int icon_mid_y = floor(h/2);
+    for(int i = 0 ; i < size ; i++){
+        long double lat = airports_ptr_->at(rk[i]).getLatitude();
+        long double lon = airports_ptr_->at(rk[i]).getLongitude();
+        int width = base.width();
+        int height = base.height();
+        long double middle_x = width/2.0;
+        long double middle_y = height/2.0;
+        int x = floor(middle_x + lon*((double)width/360.0));
+        int y = floor(middle_y - lat*((double)height/180.0));
+        for(int j = 0 ; j < w ; j++){
+            for(int k = 0 ; k < h ; k++){
+                if(icon.getPixel(j,k).a == 0){
+                    continue;
+                }
+                cs225::HSLAPixel & pixel = base.getPixel(x+(j-icon_mid_x), y+(k-icon_mid_y));
+                pixel.h = 0;
+                pixel.s = 1;
+                pixel.l = 0.5;
+                pixel.a = icon.getPixel(j,k).a;
+            }
+        }
+    }
+}
+
+void MatrixMult (vector<vector<double>> & m1, vector<double> & m2, vector<double> & res)
+{
+    /** Matrix-Vector multiplication **/
+    for (unsigned int i = 0; i < res.size(); i ++)
+    {
+        double result_row = 0;
+        for (unsigned int j = 0; j < m2.size(); j ++)
+        {
+            result_row = result_row + m1[i][j] * m2[j];
+            
+        }
+        res[i] = result_row;
+        cout<<"res"<<i<<" is "<<result_row<<endl;
+    }
+}
+
+// Descending sort the vector while keep track of the original indexes
+vector<size_t> sort_indexes(const vector<double> & v) {
 
   vector<size_t> idx(v.size());
   iota(idx.begin(), idx.end(), 0);
@@ -350,3 +430,52 @@ vector<size_t> Graph::simplifiedPageRank(int top) {
 
 //     return Rank;
 // }
+
+cs225::PNG Graph::getBasePic(){
+    return base;
+}
+
+void Graph::drawLine(vector<unsigned> path){
+    int size = path.size();
+    int width = base.width();
+    int height = base.height();
+    long double middle_x = width/2.0;
+    long double middle_y = height/2.0;
+    for(int i = 1 ; i < size ; i++){
+        long double lat_1 = airports_ptr_->at(path[i]).getLatitude();
+        long double lon_1 = airports_ptr_->at(path[i]).getLongitude();
+        int x_1 = floor(middle_x + lon_1*((double)width/360.0));
+        int y_1 = floor(middle_y - lat_1*((double)height/180.0));
+        long double lat_2 = airports_ptr_->at(path[i-1]).getLatitude();
+        long double lon_2 = airports_ptr_->at(path[i-1]).getLongitude();
+        int x_2 = floor(middle_x + lon_2*((double)width/360.0));
+        int y_2 = floor(middle_y - lat_2*((double)height/180.0));
+        double x_start, x_end, y_start, y_end;
+        if(x_2 > x_1){
+            x_start = x_1;
+            y_start = y_1;
+            x_end = x_2;
+            y_end = y_2;
+        }else{
+            x_start = x_2;
+            y_start = y_2;
+            x_end = x_1;
+            y_end = y_1;
+        }
+        long double slope;
+        if(x_end != x_start){
+            slope = ((long double)(y_end - y_start))/((long double)(x_end - x_start));
+        }else{
+            slope = (y_end - y_start)/std::abs(y_end - y_start);
+        }
+        while(x_start != x_end){
+            ++x_start;
+            y_start = y_start + slope;
+            cs225::HSLAPixel & pixel = base.getPixel((int)x_start, (int)y_start);
+            pixel.h = 240;
+            pixel.s = 1;
+            pixel.l = 0.25;
+            pixel.a = 1;
+        }
+    }
+}
