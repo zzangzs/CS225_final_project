@@ -250,7 +250,7 @@ void MatrixMult (vector<vector<double>> & m1, vector<double> & m2, vector<double
 }
 
 // Descending sort the vector while keep track of the original indexes
-vector<size_t> sort_indexes(const vector<double> & v) {
+vector<size_t> sort_indices(const vector<double> & v) {
 
   vector<size_t> idx(v.size());
   iota(idx.begin(), idx.end(), 0);

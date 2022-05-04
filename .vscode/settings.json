@@ -72,11 +72,6 @@
         "random": "cpp",
         "stack": "cpp",
         "string": "cpp",
-<<<<<<< HEAD
-        "valarray": "cpp",
-=======
-<<<<<<< HEAD
->>>>>>> fe008d64c6d29886eb030f9b79c18abebe478c67
         "csetjmp": "cpp",
         "csignal": "cpp",
         "condition_variable": "cpp",
@@ -84,13 +79,7 @@
         "unordered_set": "cpp",
         "future": "cpp",
         "scoped_allocator": "cpp",
-<<<<<<< HEAD
-        "thread": "cpp"
-=======
         "thread": "cpp",
-=======
->>>>>>> 027ca45a28e6abf1ac0bcb4da32d5872800e7ac9
         "valarray": "cpp"
->>>>>>> fe008d64c6d29886eb030f9b79c18abebe478c67
     }
 }

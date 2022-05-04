@@ -29,6 +29,9 @@ using std::vector;
 using std::pair;
 using std::string;
 
+#include "cs225/HSLAPixel.h"
+#include "cs225/PNG.h"
+
 /**
  * Helper function to print vectors / 2d vectors
  * 

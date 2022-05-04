@@ -24,7 +24,7 @@ TEST_CASE("CTR::testGraphConstructor","[part3]")
 
     Readfile read = Readfile();
     read.readfile_airport(airports, "./tests/airport_test_3.txt");
-    read.readfile_routes(routes_ptrs, airports, "./tests/routes_test.txt");
+    read.readfile_routes(routes_ptrs, airports, "./tests/routes_test_3.txt");
     
     for (auto & ptr : routes_ptrs) {
         routes.push_back(*ptr);
@@ -62,7 +62,7 @@ TEST_CASE("PR::testPageRank","[part3]") {
 
     Readfile read = Readfile();
     read.readfile_airport(airports, "./tests/airport_test_3.txt");
-    read.readfile_routes(routes_ptrs, airports, "./tests/routes_test.txt");
+    read.readfile_routes(routes_ptrs, airports, "./tests/routes_test_3.txt");
     
     for (auto & ptr : routes_ptrs) {
         routes.push_back(*ptr);
