@@ -161,3 +161,32 @@ The PageRank algorithm we currently refer to doesn't apply to the adjacency matr
 1. Improve PageRank algorithm so it is compatible with the complete dataset.
 2. Work on comment of each file and result.md file.
 3. Complete text prompts of test programs to polish the final output.
+
+## 2022/5/3 Week 6
+author: YL
+
+### What goals you had set for the week and whether they were accomplished or not
+1. Completing graph visualization. Accomplished.
+2. Completing presentation slides. Accomplished.
+3. Record the video. In progress.
+4. Wrap up the project. In progress.
+
+### What specific tasks each member of your team accomplished in the week
+**Nan Kang**
+1. Completing the slides for final presentation. 
+
+**Yixiao Fang**
+1. Editing the Readfile.cpp and working on the main function.
+
+**Zisu Jiang**
+1. Finishing PageRank algorithm and testing. Perfecting the comments for Graph.
+
+**Yu Li**
+1. Finishing the graph implementation, drawLine and draw_rank.
+
+### What problems you encountered (if any) that prevented you from meeting your goals
+We reached our goal perfectly this week. Every goal is accomplished ahead of the time
+and we have more time to prepare for the final presentation.
+
+### What you plan to accomplish next week
+1. Since this is the last week, we don't have any plan for next week.
