@@ -71,6 +71,7 @@
         "queue": "cpp",
         "random": "cpp",
         "stack": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "valarray": "cpp"
     }
 }
