@@ -2,9 +2,8 @@
 #include "Readfile.h"
 #include "Graph.h"
 #include "Airport.h"
-// #include "Route.h"
+#include "Route.h"
 
-#include <bits/stdc++.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -32,7 +31,7 @@ int main()
 
     Graph testGraph(routes,airports);
     testGraph.printGraph();
-    // testGraph.BFS();
+    testGraph.BFS();
 
     // vector<unsigned> flight = testGraph.Dijkstra(0,3);
     // for(auto stop:flight)

@@ -72,6 +72,14 @@
         "random": "cpp",
         "stack": "cpp",
         "string": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "csetjmp": "cpp",
+        "csignal": "cpp",
+        "condition_variable": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "future": "cpp",
+        "scoped_allocator": "cpp",
+        "thread": "cpp"
     }
 }
