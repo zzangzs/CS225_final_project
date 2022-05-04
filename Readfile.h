@@ -10,6 +10,8 @@ using namespace std;
 class Readfile
 {
     private:
+        int airport_1_id;
+        int airport_2_id;
         /*
             The map 'id_change' is used to record potential airport ID changes. 
             It maps the original IDs from the input file to the actual assigned IDs
@@ -22,6 +24,7 @@ class Readfile
         */
         map<string, unsigned int> iata_id;
         map<string, unsigned int> icao_id;
+        void parse_correct_airport(string s, vector<Airport> & airport_vec, string airport_1, string airport_2);
         void parse_correct_airport(string s, vector<Airport> & airport_vec);
         void parse_correct_routes(string s, vector<Route*> & routes_vec, vector<Airport> & airport_vec);
         bool isNumber(const string& str);
@@ -31,6 +34,7 @@ class Readfile
     public:
         Readfile();
         ~Readfile();
+        vector<int> readfile_airport(vector<Airport> & airport_vec, string filepath, string airport_1, string airport_2);
         void readfile_airport(vector<Airport> & airport_vec, string filepath);
         void readfile_routes(vector<Route*> & routes_vec, vector<Airport> & airport_vec, string filepath);
 };
