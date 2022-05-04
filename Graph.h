@@ -20,10 +20,23 @@
 //#include <bits/stdc++.h> // Dijkstra
 #include <random> // std::random_device, std::mt19937
 #include <stdint.h> // UINT32_MAX
+#include <numeric>      // std::iota
+#include <algorithm>    // std::sort, std::stable_sort
+
 
 using std::vector;
 using std::pair;
 using std::string;
+
+// helper functions
+template <typename T>
+void printVec(const vector<T> & v){
+    for (size_t i = 0; i < v.size(); i++)
+    {
+        cout<<v[i]<<' ';
+    }
+    cout<<endl;
+}
 
 // Directed Weighted Graph
 class Graph
@@ -41,9 +54,10 @@ class Graph
 
         void BFS(vector<bool> * visited, int start_idx);
 
-        // void drawPoint(Airport airport);
+        void drawPoint(Airport airport);
 
 
+        vector<vector<double> > transpose(vector<vector<double> > & V2D);
 
     public:
         double total_dist;
@@ -61,8 +75,13 @@ class Graph
 
         cs225::PNG getBasePic();
 
-        void draw_rank(vector<unsigned> rk);
+        void draw_rank(vector<size_t> rk);
         
         void drawPoint(Airport airport, double h, double s, double l, double a);
+
+        void drawLine(vector<unsigned> path);
         vector<unsigned> PageRank(int numIterations) const;
+        vector<size_t> simplifiedPageRank(int = 10);
+
+        vector<size_t> PageRank(int = 100);
 };

@@ -32,19 +32,27 @@ int main()
 
     Graph testGraph(routes,airports);
     testGraph.printGraph();
-    testGraph.BFS();
+    // testGraph.BFS();
 
-    vector<unsigned> flight = testGraph.Dijkstra(0,3);
-    for(auto stop:flight)
+    // vector<unsigned> flight = testGraph.Dijkstra(0,3);
+    // for(auto stop:flight)
+    // {
+    //     cout<<stop<<endl;
+    // }
+
+    vector<size_t> rank = testGraph.simplifiedPageRank();
+    for (size_t i = 0; i<rank.size();i++)
     {
-        cout<<stop<<endl;
+        cout<<rank[i]<<' ';
     }
+    cout<<endl;
     
 
     airports.clear();
     routes.clear();
     routes_ptrs.clear();
-    flight.clear();
+    // flight.clear();
+    rank.clear();
 
     Readfile read = Readfile();
     read.readfile_airport(airports, "./data/airport.txt");
@@ -57,11 +65,20 @@ int main()
 
     Graph myGraph(routes,airports);
 
-    flight = myGraph.Dijkstra(0,1);
-    for(auto stop:flight)
+    // flight = myGraph.Dijkstra(100,110);
+    // for(auto stop:flight)
+    // {
+    //     cout<<stop<<endl;
+    // }
+    cout<<"Top 10 popular airports: "<<endl;
+    rank = myGraph.simplifiedPageRank();
+    for (size_t i = 0; i<10;i++)
     {
-        cout<<stop<<endl;
+        size_t index = rank[i];
+        cout<<"No. "<<i+1<<" Airport is "<<airports[index].getName()<<endl;
+        // cout<<rank[i]<<' ';
     }
-    
+    cout<<endl;
+
     return 0;
 }

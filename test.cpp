@@ -11,26 +11,7 @@
 
 int main()
 {
-    // vector<Route> routes;
-    // vector<Airport> airports;
-    // for(int i = 0 ; i < 3 ; i++){
-    //     Route route(0,0,0);
-    //     route.setStartID(i);
-    //     route.setEndID((i+1)%3);
-    //     route.setDist(5 + i);
-    //     routes.push_back(route);
-    //     //airports.push_back(Airport());
-    //     string name = "Tdfnri";
-    //     Airport a(name, "U.S.", "Champaign", i, 60, 0);
-    //     airports.push_back(a);
-    // }
-    // cs225::PNG temp;
-    // temp.readFromFile("original.png");
-    // Graph g(routes, airports, temp);
-    // g.BFS();
-    //g.drawPoint(airports[0]);
-
-
+    
     // Initialize the airport vector
     vector<Airport> airports;
 
@@ -48,12 +29,12 @@ int main()
 
     cs225::PNG temp;
     temp.readFromFile("original.png");
-
     Graph myGraph(routes,airports,temp);
     myGraph.BFS();
-    std::vector<unsigned> rk = myGraph.PageRank(100);
-    // std::cout<<rk[0]<<std::endl;
-    // myGraph.draw_rank(rk);
+    std::vector<size_t> rk = myGraph.simplifiedPageRank(10);
+    std::vector<unsigned> path = {(unsigned int)rk[0],(unsigned int)rk[1],(unsigned int)rk[2], (unsigned int)rk[3]};
+    myGraph.draw_rank(rk);
+    myGraph.drawLine(path);
     cs225::PNG output = myGraph.getBasePic();
     output.writeToFile("test_output.png");
 }

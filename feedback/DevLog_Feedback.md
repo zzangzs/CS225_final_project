@@ -29,3 +29,13 @@ Sufficient
 
 ### Comments:
 It seems that your group has made considerable progress so far, so great work on that. I think you'll find that if you have BFS implemented, then Dijkstra's algorithm will end up being very structurally similar to BFS. Looking forward to meeting with your group for the check-in.
+
+
+## Week of 4/18 - 4/24
+
+
+### Grade
+Sufficient
+
+### Comments:
+Your progress for this week is quite good, and I think you shouldn't run into any issues completing the project on time. Great work!

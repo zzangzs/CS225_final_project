@@ -72,6 +72,7 @@
         "random": "cpp",
         "stack": "cpp",
         "string": "cpp",
+<<<<<<< HEAD
         "csetjmp": "cpp",
         "csignal": "cpp",
         "condition_variable": "cpp",
@@ -80,6 +81,8 @@
         "future": "cpp",
         "scoped_allocator": "cpp",
         "thread": "cpp",
+=======
+>>>>>>> 027ca45a28e6abf1ac0bcb4da32d5872800e7ac9
         "valarray": "cpp"
     }
 }

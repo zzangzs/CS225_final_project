@@ -131,3 +131,33 @@ The running time of Dijkstra's algorithm is too long since the dataset is very b
 1. Go further on PageRank algorithm.
 2. Go further on Graph Visualization.
 3. Find a way to shorten the running time of Dijkstra. May reduce dataset's size.
+
+
+## 2022/4/26 Week 5
+author: ZJ
+
+### What goals you had set for the week and whether they were accomplished or not
+1. Go further on PageRank algorithm. Accomplished.
+2. Go further on Graph Visualization. In Progress (Agreed on no more visualization yet would work on it if possible).
+3. Shorten the running time of Dijkstra. In Progress.
+
+### What specific tasks each member of your team accomplished in the week
+**Nan Kang**
+1. Edited result.md file and added descriptions to Dijkstra. 
+
+**Yixiao Fang**
+1. Implemented function of multiplying matrix by vector in Graph.cpp for further use.
+
+**Zisu Jiang**
+1. Implemented PageRank algorithm that works on a sample dataset.
+
+**Yu Li**
+1. Implemented DrawPoint on a PNG file that may be used in visualization.
+
+### What problems you encountered (if any) that prevented you from meeting your goals
+The PageRank algorithm we currently refer to doesn't apply to the adjacency matrix where there is vertex that has no incoming edges or outgoing edges.
+
+### What you plan to accomplish next week
+1. Improve PageRank algorithm so it is compatible with the complete dataset.
+2. Work on comment of each file and result.md file.
+3. Complete text prompts of test programs to polish the final output.
