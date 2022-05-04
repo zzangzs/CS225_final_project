@@ -104,6 +104,38 @@ bool Readfile::isNumber(const string& str)
 
     @param airport_vec The vector that stores every Airport object
     @param filepath The path and name of the input file
+    @param airport_1 The first airport name of user input
+    @param airport_2 The second airport name of user input
+    @return A vector contains two integers, which are the ids of the two airports repectively
+**/
+vector<int> Readfile::readfile_airport(vector<Airport> & airport_vec, string filepath, string airport_1, string airport_2)
+{
+    airport_1_id = -1;
+    airport_2_id = -1;
+    // Open a new file to perform read operation line by line
+    fstream newfile;
+    newfile.open(filepath, ios::in);
+    if (newfile.is_open() == true)
+    {
+        string line;
+        while(getline(newfile, line))
+        {
+            // Parse each line and check for data error
+            parse_correct_airport(line, airport_vec, airport_1, airport_2);
+        }
+        newfile.close(); 
+    }
+
+    /* Return user input airports id */
+    vector<int> airports_id;
+    airports_id.push_back(airport_1_id);
+    airports_id.push_back(airport_2_id);
+    return airports_id;
+}
+
+
+/**
+    This is the overloading function of readfile_airport for test cases
 **/
 void Readfile::readfile_airport(vector<Airport> & airport_vec, string filepath)
 {
@@ -155,7 +187,182 @@ void Readfile::readfile_routes(vector<Route*> & routes_vec, vector<Airport> & ai
     checks for data validity. 
 
     @param airport_vec The vector that stores every Airport object
+    @param airport_1 The first airport name of user input
+    @param airport_2 The second airport name of user input
     @param s Every line of the input file
+**/
+void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec, string airport_1, string airport_2)
+{
+    // Construct an airport object
+    Airport *airport = new Airport();
+
+    stringstream s_stream(s);
+    int count = 0;
+    bool airport_valid = true;
+    unsigned int orig_id = 0;
+    while(s_stream.good())
+    {
+        // 'substr' is the string of every parse (different portions of the line)
+        string substr;
+        getline(s_stream, substr, ',');
+        
+        if (count == 0)
+        {
+            // Read the airport's original id
+            orig_id = std::stoul(substr);
+        }
+
+        if (count == 1)
+        {
+            // Check for valid airport name
+            if (substr == "")
+            {
+                airport_valid = false;
+                break;
+            }
+
+            if (substr[0] != '\"' || substr[substr.length() - 1] != '\"')
+            {
+                airport_valid = false;
+                break;
+            }
+
+            airport -> setName(substr);
+        }
+
+        if (count == 2)
+        {
+            // Check for valid city name
+            if (substr == "")
+            {
+                airport_valid = false;
+                break;
+            }
+
+            if (substr[0] != '\"' || substr[substr.length() - 1] != '\"')
+            {
+                airport_valid = false;
+                break;
+            }
+
+            airport -> setCity(substr);
+        }
+
+        if (count == 3)
+        {
+            // Check for valid country name
+            if (substr == "")
+            {
+                airport_valid = false;
+                break;
+            }
+
+            if (substr[0] != '\"' || substr[substr.length() - 1] != '\"')
+            {
+                airport_valid = false;
+                break;
+            }
+
+            airport -> setCountry(substr);
+        }
+
+        if (count == 4)
+        {
+            // Add IATA (IATA can be \N if not assigned)
+            airport -> setIATA(substr);
+        }
+
+        if (count == 5)
+        {
+            // Add ICAO (ICAO can be \N if not assigned)
+            airport -> setICAO(substr);
+        }
+
+        if (count == 6)
+        {
+            // Check for valid latitude
+            if (substr == "")
+            {
+                airport_valid = false;
+                break;
+            }
+            else
+            {
+                double latitude = std::stold(substr);
+                if (latitude > 90 || latitude < -90)
+                {
+                    airport_valid = false;
+                    break;
+                }
+                airport -> setLatitude(latitude);
+            }
+        }
+
+        if (count == 7)
+        {
+            // Check for valid longtitude
+            if (substr == "")
+            {
+                airport_valid = false;
+                break;
+            }
+            else
+            {
+                double longitude = std::stold(substr);
+                if (longitude > 180 || longitude < -180)
+                {
+                    airport_valid = false;
+                    break;
+                }
+                airport -> setLongitude(longitude);
+            }
+        }
+        count ++;
+    }
+
+    // Determine whether the airport should be stored
+    if (airport_valid == true)
+    {
+        /* airport_vec.size() is the actual index refers to the airport,
+            which should equal to the airport assigned id. (not the original
+            one if there exist invalid airports)
+
+            The actual assigned airport id is 'airport_vec.size()'
+        */
+        airport -> setId(airport_vec.size());
+        id_change[orig_id] = airport_vec.size();
+
+        // Set the two maps (IATA -> ID AND ICAO -> ID)
+        if (airport -> getIATA() != "")
+        {
+            iata_id[airport -> getIATA()] = airport -> getID();
+        }
+        if (airport -> getICAO() != "")
+        {
+            icao_id[airport -> getICAO()] = airport -> getID();
+        }
+
+        /* Get the airport actual id from user input airport */
+        if (airport_1 == airport -> getName())
+        {
+            airport_1_id = airport -> getID();
+        }
+        else if (airport_2 == airport -> getName())
+        {
+            airport_2_id = airport -> getID();
+        }
+
+        airport_vec.push_back(*airport);
+    }
+    else
+    {
+        delete airport;
+    }
+}
+
+
+/**
+    This is the overloading function of parse_correct_airport for test cases
 **/
 void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
 {
