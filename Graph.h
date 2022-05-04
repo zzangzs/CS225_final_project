@@ -59,6 +59,10 @@ class Graph
 
         int BFS();
 
-        void drawPoint(Airport airport);
+        cs225::PNG getBasePic();
+
+        void draw_rank(vector<unsigned> rk);
+        
+        void drawPoint(Airport airport, double h, double s, double l, double a);
         vector<unsigned> PageRank(int numIterations) const;
 };

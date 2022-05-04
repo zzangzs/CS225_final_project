@@ -71,6 +71,15 @@
         "queue": "cpp",
         "random": "cpp",
         "stack": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "csetjmp": "cpp",
+        "csignal": "cpp",
+        "condition_variable": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "future": "cpp",
+        "scoped_allocator": "cpp",
+        "thread": "cpp",
+        "valarray": "cpp"
     }
 }

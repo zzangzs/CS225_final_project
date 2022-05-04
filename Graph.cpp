@@ -100,11 +100,11 @@ void Graph::BFS(vector<bool>* visited, int start_idx)
     q.push(start_idx);
     while(!q.empty()){
         int v = q.front();
-        cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<endl;
-        cout<<"Airport name: "<<airports_ptr_->at(v).getName()<<endl;
-        cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<endl;
-        cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<endl;
-        drawPoint(airports_ptr_->at(v));
+        // cout<<"Airport id: "<<airports_ptr_->at(v).getID()<<endl;
+        // cout<<"Airport name: "<<airports_ptr_->at(v).getName()<<endl;
+        // cout<<"Airport country: "<<airports_ptr_->at(v).getCountry()<<endl;
+        // cout<<"Airport city: "<<airports_ptr_->at(v).getCity()<<endl;
+        drawPoint(airports_ptr_->at(v), 0, 0, 0, 1);
         q.pop();
         for(unsigned int i = 0 ; i < numAirports ; i++){
             if(adj_[v][i]!=0 && !(*visited)[i]){     //if adjacent to start_idx, if not visited before
@@ -183,26 +183,36 @@ vector<unsigned> Graph::Dijkstra(unsigned int departure, unsigned int destinatio
     return path;
 }
 
-void Graph::drawPoint(Airport airport){
+void Graph::drawPoint(Airport airport, double h, double s, double l, double a){
     long double lat = airport.getLatitude();
     long double lon = airport.getLongitude();
     int width = base.width();
     int height = base.height();
-    int middle_x = width/2;
-    int middle_y = height/2;
-    unsigned int x = (int)(middle_x + lon*(width/360));
-    unsigned int y = (int)(middle_y - lat*(height/180));
-    for(int i = 0; i < 10; i ++){
-        for(int j = 0; j < 10; j++){
-            cs225::HSLAPixel & pixel = base.getPixel(x+(i-5), y+(j-5));
-            pixel.h = 0;
-            pixel.s = 0;
-            pixel.l = 0;
-            pixel.a = 0;
+    long double middle_x = width/2.0;
+    long double middle_y = height/2.0;
+    int x = floor(middle_x + lon*((double)width/360.0));
+    int y = floor(middle_y - lat*((double)height/180.0));
+    if(x > width - 2 || x < 2 || y > height - 2 || y < 2){
+        return;
+    }
+    for(int i = 0; i < 3; i ++){
+        for(int j = 0; j < 3; j++){
+            cs225::HSLAPixel & pixel = base.getPixel(x+(i-1), y+(j-1));
+            pixel.h = h;
+            pixel.s = s;
+            pixel.l = l;
+            pixel.a = a;
         }
     }
-    //base.writeToFile("test_output.png");
 }
+
+void Graph::draw_rank(vector<unsigned> rk){
+    int size = rk.size();
+    for(int i = 0 ; i < size ; i++){
+        drawPoint(airports_ptr_->at(i), 0, 1, 0.5, 1);
+    }
+}
+
 void MatrixMult (vector<vector<double>> & m1, vector<double> & m2, vector<double> & res)
 {
     /** Matrix-Vector multiplication **/
@@ -278,4 +288,8 @@ vector<unsigned> Graph::PageRank(int numIterations=100) const
     vector<unsigned> Rank(numAirports,0);
 
     return Rank;
+}
+
+cs225::PNG Graph::getBasePic(){
+    return base;
 }

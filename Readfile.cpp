@@ -254,7 +254,7 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
             }
             else
             {
-                double latitude = std::stold(substr);
+                long double latitude = std::stold(substr);
                 if (latitude > 90 || latitude < -90)
                 {
                     airport_valid = false;
@@ -274,7 +274,7 @@ void Readfile::parse_correct_airport(string s, vector<Airport> & airport_vec)
             }
             else
             {
-                double longitude = std::stold(substr);
+                long double longitude = std::stold(substr);
                 if (longitude > 180 || longitude < -180)
                 {
                     airport_valid = false;
