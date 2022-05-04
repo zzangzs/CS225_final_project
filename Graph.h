@@ -7,7 +7,6 @@
  * @author Zisu Jiang
  * @author Nan Kang
  * @author Yu Li
- * 
  * @date 05/03/2022
  */
 #pragma once
@@ -24,6 +23,8 @@
 
 #include <numeric>      // std::iota
 #include <algorithm>    // std::stable_sort
+#include <random>       // std::random_device, std::mt19937
+#include <stdint.h>     // UINT32_MAX
 
 using std::vector;
 using std::pair;
@@ -57,7 +58,7 @@ void print2DVec(const vector<vector<T> > & V2D) {
 }
 
 /**
- *  Helper function in simplifiedPageRank
+ * Helper function of descending argsort in PageRank 
  * 
  * @param v vector to be sorted
  * @return vector<size_t> indices of the sorted vector in descending order 
@@ -65,7 +66,7 @@ void print2DVec(const vector<vector<T> > & V2D) {
 vector<size_t> sort_indices(const vector<double> & v);
 
 /**
- *  Directed Weighted Graph date structure
+ *  Directed Weighted Graph class
  */
 class Graph
 {
@@ -84,6 +85,15 @@ class Graph
 
         void BFS(vector<bool> * visited, int start_idx);
 
+        /**
+         * @brief 
+         * 
+         * @param oldPR 
+         * @param L 
+         * @param d 
+         */
+        void PageRank(vector<double> & oldPR, const vector<double> & L, double d);
+
         void drawPoint(Airport airport);
 
     public:
@@ -91,7 +101,7 @@ class Graph
         
         /**
          * Default constructor
-         *
+         * 
          * @param routes vector of Route parsed by Readfile()
          * @param airports vector of Airport parsed by Readfile()
          */
@@ -101,9 +111,9 @@ class Graph
 
         /**
          * Helper funtction to check the Graph constructor before implementing BFS
-         * 
-         * Traverse over the graph by iteration and print every airport and its
-         *     incident edges
+         *
+         * @brief Traverse over the graph by iteration and print every airport and its
+         * incident edges.
          */
         void printGraph() const;
 
@@ -120,10 +130,11 @@ class Graph
         /**
          * PageRank algorithm
          * 
-         *  
-         * 
-         * @param int number of toppest airport, default to be 10
-         * @return vector<size_t> indices of (*airports) that are top 10(default) popular airports
+         * @param top 
+         * @param iterations 
+         * @param d 
+         * @return vector<size_t> 
          */
-        vector<size_t> simplifiedPageRank(int = 10);
+        vector<size_t> PageRank (int top = 10, int iterations = 100, double d = 0.85);
+        vector<size_t> simplifiedPageRank(int top = 10);
 };

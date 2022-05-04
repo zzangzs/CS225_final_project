@@ -61,8 +61,8 @@ TEST_CASE("PR::testPageRank","[part3]") {
     vector<size_t> rank;
 
     Readfile read = Readfile();
-    read.readfile_airport(airports, "./tests/airport_test_3.txt");
-    read.readfile_routes(routes_ptrs, airports, "./tests/routes_test_3.txt");
+    read.readfile_airport(airports, "./data/airport.txt");
+    read.readfile_routes(routes_ptrs, airports, "./data/route.txt");
     
     for (auto & ptr : routes_ptrs) {
         routes.push_back(*ptr);
@@ -71,7 +71,7 @@ TEST_CASE("PR::testPageRank","[part3]") {
     Graph myGraph(routes,airports);
 
     int top = 10;
-    rank = myGraph.simplifiedPageRank(top);
+    rank = myGraph.PageRank(top,5);
 
     cout<<endl<<endl;
  
@@ -79,7 +79,21 @@ TEST_CASE("PR::testPageRank","[part3]") {
     for (unsigned i = 0; i < rank.size() ; i++) {
         cout<<"    ";
         size_t index = rank[i];
-        cout<<"No. "<<i+1<<" Airport is "<<airports[index].getName()<<endl;
+        Airport ap(airports[index]);
+        cout<<"No. "<<i+1<<" Airport is "<<ap.getName()<<" in "<<ap.getCity()<<", "<<ap.getCountry()<<endl;
+    }
+    cout<<endl;
+    rank.clear();
+
+    rank = myGraph.simplifiedPageRank();
+    cout<<endl<<endl;
+ 
+    cout<<"Top "<<top<<" Popular Airports: "<<endl; 
+    for (unsigned i = 0; i < rank.size() ; i++) {
+        cout<<"    ";
+        size_t index = rank[i];
+        Airport ap(airports[index]);
+        cout<<"No. "<<i+1<<" Airport is "<<ap.getName()<<" in "<<ap.getCity()<<", "<<ap.getCountry()<<endl;
     }
     cout<<endl;
 

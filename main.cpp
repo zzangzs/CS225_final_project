@@ -101,48 +101,21 @@ int main()
     cout << AirportGraph.total_dist << " km";
     cout << "\n"; 
 
-
-    /*
-    vector<size_t> rank = testGraph.simplifiedPageRank();
-    for (size_t i = 0; i<rank.size();i++)
-    {
-        cout<<rank[i]<<' ';
-    }
+    cout<<endl<<endl;
+    string top;
+    cout << "Please enter how many ranks you want, 10 if empty: ";
+    getline(cin, top);
     cout<<endl;
-    
 
-    airports.clear();
-    routes.clear();
-    routes_ptrs.clear();
-    // flight.clear();
-    rank.clear();
+    vector<size_t> rank = AirportGraph.PageRank(10,5);
 
-    Readfile read = Readfile();
-    read.readfile_airport(airports, "./data/airport.txt");
-    read.readfile_routes(routes_ptrs, airports, "./data/route.txt");
-
-    for (auto & ptr : routes_ptrs)
-    {
-        routes.push_back(*ptr);
-    }
-
-    Graph myGraph(routes,airports);
-
-    // flight = myGraph.Dijkstra(100,110);
-    // for(auto stop:flight)
-    // {
-    //     cout<<stop<<endl;
-    // }
-    cout<<"Top 10 popular airports: "<<endl;
-    rank = myGraph.simplifiedPageRank();
-    for (size_t i = 0; i<10;i++)
-    {
+    cout<<"Top"<<top<<" Popular Airports: "<<endl; 
+    for (unsigned i = 0; i < rank.size() ; i++) {
         size_t index = rank[i];
-        cout<<"No. "<<i+1<<" Airport is "<<airports[index].getName()<<endl;
-        // cout<<rank[i]<<' ';
+        Airport ap(airports[index]);
+        cout<<"No. "<<i+1<<" Airport is "<<ap.getName()<<" in "<<ap.getCity()<<", "<<ap.getCountry()<<endl;
     }
     cout<<endl;
-    */
 
     return 0;
 }
