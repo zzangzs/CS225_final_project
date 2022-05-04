@@ -13,15 +13,11 @@
 #include <queue>
 #include <iostream>
 #include <vector>
-<<<<<<< HEAD
 #include <string>
 #include "cs225/HSLAPixel.h"
 #include "cs225/PNG.h"
 
 //#include <bits/stdc++.h> // Dijkstra
-=======
-// #include <bits/stdc++.h> // Dijkstra
->>>>>>> 752267946457148c2d62a097bf2d866455d8efb4
 #include <random> // std::random_device, std::mt19937
 #include <stdint.h> // UINT32_MAX
 #include <numeric>      // std::iota
