@@ -31,10 +31,10 @@ int main()
     temp.readFromFile("original.png");
     Graph myGraph(routes,airports,temp);
     myGraph.BFS();
-    std::vector<size_t> rk = myGraph.simplifiedPageRank(10);
-    std::vector<unsigned> path = {(unsigned int)rk[0],(unsigned int)rk[1],(unsigned int)rk[2], (unsigned int)rk[3]};
+    std::vector<size_t> rk = myGraph.PageRank(10,4,0.85);
+    //std::vector<unsigned> path = {(unsigned int)rk[0],(unsigned int)rk[1],(unsigned int)rk[2], (unsigned int)rk[3]};
     myGraph.draw_rank(rk);
-    myGraph.drawLine(path);
+    //myGraph.drawLine(path);
     cs225::PNG output = myGraph.getBasePic();
     output.writeToFile("test_output.png");
 }

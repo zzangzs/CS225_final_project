@@ -11,7 +11,7 @@ bool compareDouble(double a, double b){
 }
 
 //set airport by default constructor
-TEST_CASE("empty airport", "[weight=10][part1]")
+TEST_CASE("empty airport", "[weight=10][part2]")
 {
     Airport airport = Airport();
 
@@ -26,7 +26,7 @@ TEST_CASE("empty airport", "[weight=10][part1]")
 }
 
 //set airport by constructor
-TEST_CASE("airport 1 ", "[weight=10][part1]")
+TEST_CASE("airport 1 ", "[weight=10][part2]")
 {
     Airport airport("Ísafjörður Airport","Iceland", "Isafjordur", 0, 66.05809783935547,-23.135299682617188);
     airport.setIATA("IFJ");
@@ -43,7 +43,7 @@ TEST_CASE("airport 1 ", "[weight=10][part1]")
 }
 
 //set airport by default constructor and then set its value
-TEST_CASE("airport 2 ", "[weight=10][part1]")
+TEST_CASE("airport 2 ", "[weight=10][part2]")
 {
     Airport airport = Airport();
     airport.setName("St. Anthony Airport");
@@ -66,7 +66,7 @@ TEST_CASE("airport 2 ", "[weight=10][part1]")
 }
 
 //set the airport by constructor with airport 1 value, and then set new value of airport 2 to the airport2
-TEST_CASE("airport 3 ", "[weight=10][part1]")
+TEST_CASE("airport 3 ", "[weight=10][part2]")
 {
     Airport airport("Zenata – Messali El Hadj Airport","Algeria", "Tlemcen", 3, 35.0167007446, -1.45000004768);
     airport.setIATA("TLM");

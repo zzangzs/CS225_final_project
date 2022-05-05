@@ -1,7 +1,14 @@
 /**
- * @file Graph.hs
- *
- * @author DHREV: ZJ KN
+ * @file Graph.h
+ * Using directed weighted graph to store airports and routes with the purpose
+ *   of finding the shortest path between two airports and visualizing the top
+ *   100 popular airports.
+ * 
+ * @author Zisu Jiang
+ * @author Nan Kang
+ * @author Yu Li
+ * 
+ * @date 2022-05-03
  */
 //#include <bits/stdc++.h> //for priority queue
 #include "Graph.h"
@@ -13,88 +20,71 @@
 #include "Graph.h"
 #include <cmath>
 
+using std::priority_queue;
 using std::map;
-using std::vector;
-using std::pair;
 using std::cout;
 using std::endl;
-using std::priority_queue;
-using std::stable_sort;
-using std::iota;
 
-Graph::Graph(){
+// Helper function to argsort in descending order
+vector<size_t> sort_indices(const vector<double> & v) {
 
+  vector<size_t> idx(v.size());
+  iota(idx.begin(), idx.end(), 0);
 
+  stable_sort(idx.begin(), idx.end(),
+       [&v](size_t i1, size_t i2) {return v[i1] > v[i2];});
+
+  return idx;
 }
 
-Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports, cs225::PNG & png)
-{
-    base = png;
+/** 
+    Default Graph constructor.
+**/
+Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports, cs225::PNG b) {
+    // initialize the pointers
     airports_ptr_ = &airports;
     routes_ptr_ = &routes;
+    base = b;
 
+    // initialize number of airports and routes
     numAirports = airports.size();
     unsigned numRoutes = routes.size();
 
+    // initialized the adjacent matrix
     adj_.resize(numAirports,vector<double>(numAirports,0));
   
+    // build routesMap from routes
     map<pair<unsigned,unsigned>,double> routesMap_;
-    //build routesMap from routes
-    for (const Route & route : routes)
-    {
+    for (const Route & route : routes) {
         routesMap_[make_pair(route.getStartID(),route.getEndID())]=route.getDist();
     }
     
-    // build adjacency matrix
-    for (size_t row = 0; row < numAirports; row++)
-    {
-        for (size_t col = 0; col < numAirports; col++)
-        {
+    // build adjacent matrix using routesMap
+    for (size_t row = 0; row < numAirports; row++) {
+        for (size_t col = 0; col < numAirports; col++) {
             pair<unsigned,unsigned> IDs = make_pair(airports[row].getID(), airports[col].getID());
             bool isIn = routesMap_.find(IDs) != routesMap_.end();
-            if (isIn)
-            {
+            if (isIn) {
                 adj_[row][col] = routesMap_[IDs];
-            } else
-            {
+            } else {
                 adj_[row][col] = 0;
             }
         }  
     }
 }
 
-vector<vector<double> > Graph::transpose(vector<vector<double> > & V2D) {
-    vector<vector<double> > temp( V2D.size(), vector<double> (V2D.size()) );
-    for (size_t i = 0; i < V2D.size(); i++)
-    {
-        for (size_t j = 0; j < V2D[i].size(); j++)
-        {
-            temp[i][j] = V2D[j][i];
-        }
-        
+/**
+ * Helper funtction to check the Graph constructor before implementing BFS
+ */
+void Graph::printGraph() const {  
+    for (size_t i = 0; i < airports_ptr_->size(); i++) {
+        cout << "Airport " << airports_ptr_->at(i).getID()+1 <<" "<<airports_ptr_->at(i).getName()<< " is adjacent to: " << endl;
+        for (size_t j = 0; j < airports_ptr_->size(); j++) {
+            if (adj_[i][j]!=0) {
+                cout << "    Airport " << airports_ptr_->at(j).getID()+1<<" "<<airports_ptr_->at(j).getName()<< " with a distance of " << adj_[i][j] << endl;
+            }  
+        }        
     }
-    return temp;
-}
-
-
-// test Adjacent Matrix
-void Graph::printGraph() const
-{  
-    for (size_t i = 0; i < airports_ptr_->size(); i++)
-    {
-        cout << "Airport " << airports_ptr_->at(i).getID()+1 << " is adjacent to: " << endl;
-        for (size_t j = 0; j < airports_ptr_->size(); j++)
-        {
-
-            if (adj_[i][j]!=0)
-            {
-                cout << "    Airport" << airports_ptr_->at(j).getID()+1 << " with a distance of " << adj_[i][j] << endl;
-            }
-            
-        }
-        
-    }
-    
 }
 
 int Graph::BFS()
@@ -256,75 +246,91 @@ void Graph::draw_rank(vector<size_t> rk){
     }
 }
 
-void MatrixMult (vector<vector<double>> & m1, vector<double> & m2, vector<double> & res)
-{
-    /** Matrix-Vector multiplication **/
-    for (unsigned int i = 0; i < res.size(); i ++)
-    {
-        double result_row = 0;
-        for (unsigned int j = 0; j < m2.size(); j ++)
-        {
-            result_row = result_row + m1[i][j] * m2[j];
-            
+/**
+ * PageRank helper
+ */
+void Graph::PageRank(vector<double> & oldPR, const vector<double> & L, double d) {
+    double initial_PR = 1.0/numAirports;
+    vector<double> PR(oldPR);
+
+    // Update weight of each airport using:
+    //                  PR_t+1(i) = (1 - d) / N + d * sum of PR_t(j) / L(j)
+    //     where:
+    //     d is the damping factor
+    //     N is number of Airports
+    //     PR_t(j) is the PageRank of the airport that has a link to airport i at last timestep
+    //     L(j) is the number of links airport j outputs in total
+    for (size_t i = 0; i < PR.size(); i++) {
+        double income = 0;
+        for (size_t j = 0; j < PR.size(); j++) {
+            if (adj_[j][i]>0) {
+                income += (1 - d) / numAirports + d * oldPR[j] / L[j];
+            }   
         }
-        res[i] = result_row;
-        cout<<"res"<<i<<" is "<<result_row<<endl;
+        PR[i] = income;      
     }
+
+    oldPR = PR;
 }
 
-// Descending sort the vector while keep track of the original indexes
-vector<size_t> sort_indexes(const vector<double> & v) {
-
-  vector<size_t> idx(v.size());
-  iota(idx.begin(), idx.end(), 0);
-
-  stable_sort(idx.begin(), idx.end(),
-       [&v](size_t i1, size_t i2) {return v[i1] > v[i2];});
-
-  return idx;
-}
-
-// Simplified version of PageRank
-// top is default 10
-vector<size_t> Graph::simplifiedPageRank(int top) {
+vector<size_t> Graph::PageRank(int top, int iterations, double d) {
+    // Declare the desired output rank as a vector of unsigned
     vector<size_t> Rank;
 
-    double initial_PR = 1.0/numAirports;
-    vector<double> PR(numAirports,initial_PR);
-    vector<double> L(numAirports,0);
+    // Instantiate a random number generator
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<uint32_t> udist;
 
-    for (size_t row = 0; row < numAirports; row++)
+    // Initialize the PageRank value for each Airport
+    // double initial = 1.0/numAirports;
+    vector<double> PR;
+
+    double sum = 0;
+
+    for(size_t i = 0; i < numAirports ; i++)
     {
+        // generate a random number between 0 and 1
+        double rand = udist(rng)*1.0/UINT32_MAX;
+
+        // keep track of the sum to help normalization
+        sum += rand;
+
+        PR.push_back(rand);
+    }
+    // cout<<"Original PR is"<<endl;
+    // cout<<"    ";
+    // printVec(PR);
+
+    // Normalize PageRank or the probability of visiting each Airport
+    for(size_t i = 0; i < numAirports ; i++)
+    {
+        PR[i] = PR[i] / sum;
+    }
+    // cout<<"Normalized PR is"<<endl;
+    // cout<<"    ";
+    // printVec(PR);
+
+    // Initialize the number of outbound links for each airport
+    vector<double> L(numAirports,0);
+    for (size_t row = 0; row < numAirports; row++) {
         int num_zeros = count(adj_[row].begin(), adj_[row].end(), 0);
         L[row] = numAirports-num_zeros;
     }
 
-    // cout<<"Outgoing links: ";
-    // printVec(L);
-    // cout<<endl;
-
-
-    for (size_t i = 0; i < PR.size(); i++)
-    {
-        double income = 0;
-        for (size_t j = 0; j < PR.size(); j++)
-        {
-            if (adj_[j][i]>0)
-            {
-                income += initial_PR/L[j];
-            }
-            
-        }
-        PR[i] = income;
-        
+    // Call helper PageRank to converge within limited itertaions
+    for (int i = 0; i < iterations; i++) {
+        PageRank(PR, L, d);
     }
-    // cout<<"PageRank: ";
-    // printVec(PR);
     // cout<<endl;
+    // cout<<"PageRank value for each Airport is:"<<endl;
+    // cout<<"    ";
+    // printVec(PR);
+
+    // sort the weight of airports and keep track of the indices
     int count = 0;
-    for (auto i: sort_indexes(PR)) {
-        if (count==top)
-        {
+    for (auto i: sort_indices(PR)) {
+        if (count==top) {
             break;
         }
         Rank.push_back(i);
@@ -332,104 +338,8 @@ vector<size_t> Graph::simplifiedPageRank(int top) {
     }
 
     return Rank;
-    
 }
 
-
-vector<size_t> Graph::PageRank(int numIterations)
-{
-    vector<size_t> Rank;
-
-    // unsigned N = numAirports;
-
-    // std::random_device dev;
-    // std::mt19937 rng(dev());
-    // std::uniform_int_distribution<uint32_t> udist;
-
-    // vector<double> v;
-    // double sum = 0;
-    // vector<double> res(5);
-
-    // for(size_t i = 0; i < 5 ; i++)
-    // {
-    //     double rand = udist(rng)*1.0/UINT32_MAX;
-    //     sum += rand;
-    //     v.push_back(rand);
-    // }
-    // cout<<"Original v = "<<endl;
-    // printVec(v);
-
-    // for(size_t i = 0; i < 5 ; i++)
-    // {
-    //     v[i] = v[i] / sum;
-    // }
-    // cout<<"Normalized v = "<<endl;
-    // printVec(v);
-
-    // vector<double> PR(numAirports, 1);
-
-    // for (size_t row = 0; row < numAirports; row++)
-    // {
-    //     int vote = 0;
-
-    //     for (size_t col = 0; col < numAirports; col++)
-    //     {
-    //         if(adj_[row][col]>0)
-    //         {
-    //             vote++;
-    //         }
-           
-    //     }
-
-    //     if (vote!=0) PR[row] = 1.0/vote;
-    // }
-
-    // cout<<"PR = "<<endl;
-    // printVec(PR);
-
-    // vector<vector<double> > M(numAirports,vector<double>(numAirports,0));
-
-    // for (size_t col = 0; col < numAirports; col++)
-    // {
-    //     for (size_t row = 0; row < numAirports; row++)
-    //     {
-    //         if (adj_[col][row]>0)
-    //         {
-    //             M[row][col] = PR[col];
-    //         }
-           
-    //     }
-    // }
-    // cout<<"M = "<<endl;
-    // for (size_t i = 0; i < M.size(); i++)
-    // {
-    //     printVec(M[i]);
-    //     cout<<endl;
-        
-    // }
-
-    // // vector<vector<double> > M_hat
-    // // {
-    // //     {0, 0, 0, 0, 1},
-    // //     {0.5, 0, 0, 0, 0},
-    // //     {0.5, 0, 0, 0, 0},
-    // //     {0, 1, 0.5, 0, 0},
-    // //     {0, 0, 0.5, 1, 0}
-    // // };
-
-    // for (int i = 0; i < numIterations; i++)
-    // {
-    //     MatrixMult(M, v, res);
-    //     v = res;
-    // }
-    // cout<<"Final v = "<<endl;
-    // printVec(v);
-    // for (auto i: sort_indexes(v)) {
-    //     Rank.push_back(i);
-    // }
-
-    return Rank;
-}
 
 cs225::PNG Graph::getBasePic(){
     return base;
@@ -478,4 +388,46 @@ void Graph::drawLine(vector<unsigned> path){
             pixel.a = 1;
         }
     }
+}
+
+vector<size_t> Graph::simplifiedPageRank(int top) {
+    vector<size_t> Rank;
+
+    // assume each page has equal weight at the beginning
+    double initial_PR = 1.0/numAirports;
+    vector<double> PR(numAirports,initial_PR);
+
+    // initialize the number of outbound links for each airport
+    vector<double> L(numAirports,0);
+    for (size_t row = 0; row < numAirports; row++) {
+        int num_zeros = count(adj_[row].begin(), adj_[row].end(), 0);
+        L[row] = numAirports-num_zeros;
+    }
+
+    // update weight of each airport using PR(i) = sum of PR(j)/L(j)
+    //     where j is each airport that has a route ending in i
+    for (size_t i = 0; i < PR.size(); i++) {
+        double income = 0;
+        for (size_t j = 0; j < PR.size(); j++) {
+            if (adj_[j][i]>0) {
+                income += initial_PR/L[j];
+            }   
+        }
+        PR[i] = income;      
+    }
+    // cout<<endl;
+    // cout<<"PageRank value for each Airport is:"<<endl;
+    // cout<<"    ";
+    // printVec(PR);
+
+    // sort the weight of airports and keep track of the indices
+    int count = 0;
+    for (auto i: sort_indices(PR)) {
+        if (count==top) {
+            break;
+        }
+        Rank.push_back(i);
+        count++;
+    }
+    return Rank;
 }
