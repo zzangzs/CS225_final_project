@@ -272,6 +272,9 @@ void Graph::PageRank(vector<double> & oldPR, const vector<double> & L, double d)
     oldPR = PR;
 }
 
+/**
+ * PageRank algorithm
+ */
 vector<size_t> Graph::PageRank(int top, int iterations, double d) {
     // Declare the desired output rank as a vector of unsigned
     vector<size_t> Rank;
@@ -297,18 +300,12 @@ vector<size_t> Graph::PageRank(int top, int iterations, double d) {
 
         PR.push_back(rand);
     }
-    // cout<<"Original PR is"<<endl;
-    // cout<<"    ";
-    // printVec(PR);
 
     // Normalize PageRank or the probability of visiting each Airport
     for(size_t i = 0; i < numAirports ; i++)
     {
         PR[i] = PR[i] / sum;
     }
-    // cout<<"Normalized PR is"<<endl;
-    // cout<<"    ";
-    // printVec(PR);
 
     // Initialize the number of outbound links for each airport
     vector<double> L(numAirports,0);
@@ -321,10 +318,6 @@ vector<size_t> Graph::PageRank(int top, int iterations, double d) {
     for (int i = 0; i < iterations; i++) {
         PageRank(PR, L, d);
     }
-    // cout<<endl;
-    // cout<<"PageRank value for each Airport is:"<<endl;
-    // cout<<"    ";
-    // printVec(PR);
 
     // sort the weight of airports and keep track of the indices
     int count = 0;

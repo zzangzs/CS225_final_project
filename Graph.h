@@ -71,7 +71,7 @@ vector<size_t> sort_indices(const vector<double> & v);
 class Graph
 {
     private:
-        // adjacent matrix
+        // adjacent matrix: adj_[i][j] storing distance if there is a route from i to j, or 0 otherwise
         vector<vector<double> > adj_;
         
         // size of airport cleaned by Readfile
@@ -129,12 +129,19 @@ class Graph
 
         /**
          * PageRank algorithm
+         *   
          * 
-         * @param top 
-         * @param iterations 
-         * @param d 
-         * @return vector<size_t> 
+         * @param top number of top rankings, default to be 10
+         * @param iterations number of iterations to converge default to be 100
+         * @param d damping factor to address page sinks, or airports without outgoing routes, default to be 0.85
+         * @return vector<size_t> vector of indices starting with the most important Airport
          */
         vector<size_t> PageRank (int top = 10, int iterations = 100, double d = 0.85);
+        /**
+         * simplified PageRank algorithm w/ equally weighted start and w/o iterations or damping factor
+         * 
+         * @param top number of top rankings, default to be 10
+         * @return vector<size_t> vector of indices starting with the most important Airport
+         */
         vector<size_t> simplifiedPageRank(int top = 10);
 };
