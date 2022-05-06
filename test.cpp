@@ -14,12 +14,22 @@ int main()
     
     // Initialize the airport vector
     vector<Airport> airports;
+    vector<int> airports_id;
 
     // Initialize the routes vector
     vector<Route> routes;
     vector<Route*> routes_ptrs;
     Readfile read = Readfile();
-    read.readfile_airport(airports, "./data/airport.txt");
+    string airport_name_1;
+    string airport_name_2;
+    cout << "Please enter your source airport name: ";
+    getline(cin, airport_name_1);
+    cout << "Please enter your destination airport name: ";
+    getline(cin, airport_name_2);
+    cout << "\n";
+    string airport_1 = "\"" + airport_name_1 + "\"";
+    string airport_2 = "\"" + airport_name_2 + "\"";
+    airports_id = read.readfile_airport(airports, "./data/airport.txt", airport_1, airport_2);
     read.readfile_routes(routes_ptrs, airports, "./data/route.txt");
 
     for (auto & ptr : routes_ptrs)
@@ -32,9 +42,13 @@ int main()
     Graph myGraph(routes,airports,temp);
     myGraph.BFS();
     std::vector<size_t> rk = myGraph.PageRank(10,4,0.85);
-    //std::vector<unsigned> path = {(unsigned int)rk[0],(unsigned int)rk[1],(unsigned int)rk[2], (unsigned int)rk[3]};
+    unsigned int source = (unsigned int)airports_id[0];
+    std::cout<<source<<std::endl;
+    unsigned int destination = (unsigned int)airports_id[1];
+    std::cout<<destination<<std::endl;
+    std::vector<unsigned> path = myGraph.Dijkstra(source, destination);
     myGraph.draw_rank(rk);
-    //myGraph.drawLine(path);
+    myGraph.drawLine(path);
     cs225::PNG output = myGraph.getBasePic();
     output.writeToFile("test_output.png");
 }
