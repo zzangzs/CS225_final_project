@@ -15,3 +15,14 @@ We use many test cases to test: 1. no path between; 2. has a path with one edge;
 ![image](https://github-dev.cs.illinois.edu/cs225-sp22/yuli9-yixiaof2-nankang2-zisuj2/blob/main/IMG/test_Dijkstra3.png)
 
 ## PageRank
+
+
+
+## BFS
+
+We use the BFS as our traversal method. The algorithm is able to run through the full-scaled dataset and visit every nodes in the graph, which are airports in our case. The declaration of BFS is in the Graph.h, and the implementation is in the Graph.cpp. Since we have a large dataset, and the result of BFS is visitng every node, so it's hard to visualize the result by printing out the airport information on the terminal. Therefore we tried to plot the dots on a world map to visualize the result.
+
+The visulization of world map after runnign BFS with the full-scaled dataset from test.cpp:
+![image](https://github-dev.cs.illinois.edu/cs225-sp22/yuli9-yixiaof2-nankang2-zisuj2/blob/main/IMG/BFS_output.png)
+
+Before we run the BFS on the large dataset, we had tested it with a small arbitrary set of information. With some small data, either connected or unconnected, the algorithm is able to traverse all the nodes and print it out.

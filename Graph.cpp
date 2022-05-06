@@ -40,10 +40,11 @@ vector<size_t> sort_indices(const vector<double> & v) {
 /** 
     Default Graph constructor.
 **/
-Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports) {
+Graph::Graph(const vector<Route> & routes, const vector<Airport> & airports, cs225::PNG b) {
     // initialize the pointers
     airports_ptr_ = &airports;
     routes_ptr_ = &routes;
+    base = b;
 
     // initialize number of airports and routes
     numAirports = airports.size();

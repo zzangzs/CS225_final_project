@@ -105,7 +105,7 @@ class Graph
          * @param routes vector of Route parsed by Readfile()
          * @param airports vector of Airport parsed by Readfile()
          */
-        Graph(const vector<Route> & routes, const vector<Airport> & airports);
+        Graph(const vector<Route> & routes, const vector<Airport> & airports, cs225::PNG b);
 
         vector<unsigned> Dijkstra(unsigned int departure, unsigned int destination);
 

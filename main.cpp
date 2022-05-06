@@ -8,6 +8,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "cs225/PNG.h"
 using namespace std;
 
 int main()
@@ -68,7 +69,9 @@ int main()
     
     
     /* Construct the airport graph */
-    Graph AirportGraph(routes,airports);
+    cs225::PNG temp;
+    temp.readFromFile("original.png");
+    Graph AirportGraph(routes,airports,temp);
 
     /* Find shortest path */
     vector<unsigned> shortest_path;
