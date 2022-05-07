@@ -18,7 +18,7 @@ We use many test cases to test: 1. no path between; 2. has a path with one edge;
 
 We use PageRank Algorithm to list the most important airports from the given dataset. According to Wikipedia, PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites. 
 
-To test PageRank is working as intended, we applied the algorithm on the same subset of the dataset used in testing Dijkstra, and calculated the approximated ranks for all airports by hand.
+To test PageRank is working as intended, we applied the algorithm on a small subset of the dataset shown as below, and calculated the approximated ranks for all airports by hand.
 ![image](https://github-dev.cs.illinois.edu/cs225-sp22/yuli9-yixiaof2-nankang2-zisuj2/blob/main/IMG/PageRankTest_0.png)
 
 Then, we compared the program output with the expected ranks using assertions to check the correction of the algorithm. The following testcases show that PageRank works well.
