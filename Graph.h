@@ -128,8 +128,11 @@ class Graph
         void drawLine(vector<unsigned> path);
 
         /**
-         * PageRank algorithm
-         *   
+         * PageRank algorithm to find the most popular airports by counting the number and quality of routes to an airport:
+         *   Assumed that more popular airports are likely to receive more routes from other airports;
+         *   Started with a randomized distribution of the initial PageRank values from 0 to 1;
+         *   Made the PageRank values converge with a limited number of iterations;
+         *   Introduced the damping factor to 
          * 
          * @param top number of top rankings, default to be 10
          * @param iterations number of iterations to converge default to be 100

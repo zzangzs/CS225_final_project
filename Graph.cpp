@@ -320,6 +320,11 @@ vector<size_t> Graph::PageRank(int top, int iterations, double d) {
         PageRank(PR, L, d);
     }
 
+    cout<<endl;
+    cout<<"PageRank value for each Airport is:"<<endl;
+    cout<<"    ";
+    printVec(PR);
+
     // sort the weight of airports and keep track of the indices
     int count = 0;
     for (auto i: sort_indices(PR)) {

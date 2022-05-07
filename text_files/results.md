@@ -16,7 +16,20 @@ We use many test cases to test: 1. no path between; 2. has a path with one edge;
 
 ## PageRank
 
+We use PageRank Algorithm to list the most important airports from the given dataset. According to Wikipedia, PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. The underlying assumption is that more important websites are likely to receive more links from other websites. 
 
+To test PageRank is working as intended, we applied the algorithm on the same subset of the dataset used in testing Dijkstra, and calculated the approximated ranks for all airports by hand.
+![image](https://github-dev.cs.illinois.edu/cs225-sp22/yuli9-yixiaof2-nankang2-zisuj2/blob/main/IMG/PageRankTest_0.png)
+
+Then, we compared the program output with the expected ranks using assertions to check the correction of the algorithm. The following testcases show that PageRank works well.
+![image](https://github-dev.cs.illinois.edu/cs225-sp22/yuli9-yixiaof2-nankang2-zisuj2/blob/main/IMG/PageRankTest_1.png)
+
+The following two outputs addresses our second leading question of finding the most popular or important airports:
+![image](https://github-dev.cs.illinois.edu/cs225-sp22/yuli9-yixiaof2-nankang2-zisuj2/blob/main/IMG/PageRankOutput_0.png)
+
+![image](https://github-dev.cs.illinois.edu/cs225-sp22/yuli9-yixiaof2-nankang2-zisuj2/blob/main/IMG/PageRankOutput_1.png)
+
+According to the outputs above especially the visualized top airports marked with red flights on the map, we discovered that the regional distribution of top airports are extremely biased, reflecting by the fact that most red spots fall within North America and Europe. This discover reminds us that there still exists different kinds of injustice across the world, which in our case is ineuquitable access to quality infrastructure such as airports. 
 
 ## BFS
 
