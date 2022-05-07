@@ -25,9 +25,9 @@ All text documents apart from dataset will be stored here. Contains our log, fin
 
 ## Running Instructions
 ### Test cases instruction
-To run all the test cases loacated in the /tests folder, first compile by running make test, then ./test to run all the test cases.
+To run all the test cases loacated in the /tests folder, first compile by running make test, then ./test to run all the test cases. part1, 2, and 3 are respectively used to test Readfile (data parsing and data correction), Airport (data storage), and Graph (graph constructor and PageRank).
 
-### Test cases instruction
+### Build and run the executable instruction
 To run main.cpp, first run make, then run ./airports. Then, there should be two prompts on the screen that request the user to enter source and destination airport name, which should be any of the airport names in our airport dataset (airport.txt in /data) without double quotes. Next, some messages about shortest path should be shown, and there is another prompt that allows the user to choose how many ranks to print for the PageRank algorithm, which should be the top most important airports in the dataset. 
 
 
