@@ -29,7 +29,7 @@ The following two outputs addresses our second leading question of finding the m
 
 ![image](https://github-dev.cs.illinois.edu/cs225-sp22/yuli9-yixiaof2-nankang2-zisuj2/blob/main/IMG/PageRankOutput_1.png)
 
-According to the outputs above especially the visualized top airports marked with red flights on the map, we discovered that the regional distribution of top airports are extremely biased, reflecting by the fact that most red spots fall within North America and Europe. This discover reminds us that there still exists different kinds of injustice across the world, which in our case is ineuquitable access to quality infrastructure such as airports. 
+According to the outputs above especially the visualized top airports marked with red flights on the map, we discovered that the regional distribution of top airports are extremely biased, reflecting by the fact that most red spots fall within North America and Europe. This discovery reminds us that there still exist different kinds of injustice across the world, which in our case is ineuquitable access to quality infrastructure such as airports. 
 
 ## BFS
 
