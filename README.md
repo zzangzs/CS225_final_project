@@ -21,7 +21,7 @@ Contain the full scale dataset that we will use in main.cpp
 Contain images that will be shown in .md files on github.
 
 ### /proj/text_files
-All text documents apart from dataset will be stored here. Contains our log, final presentation link, README.md, result.md,proposal, and team contract.
+All text documents apart from dataset will be stored here. Contains our log, final presentation link, result.md,proposal, and team contract.
 
 ## Running Instructions
 ### Test cases instruction
