@@ -10,6 +10,10 @@
 
 using namespace std;
 
+bool compare_double(double a, double b) {
+    return std::fabs(a-b)<1e-8;
+}
+
 /** 
     First test case with flawless input.
     Test reading every entry correctly.
@@ -35,7 +39,7 @@ TEST_CASE("Test readfile_1", "[weight=10][part1]")
     REQUIRE("\"Baie Comeau\"" == airports[1].getCity());
     REQUIRE(0 == airports[0].getID());
     REQUIRE(3 == airports[3].getID());
-    REQUIRE(airports[0].getLatitude() == 68.534401);
+    REQUIRE(compare_double((double)airports[0].getLatitude(), 68.534401));
     REQUIRE(airports[2].getLongitude() == -70.99639892578125);
     REQUIRE("\"YBC\"" == airports[1].getIATA());
     REQUIRE("\"CYBG\"" == airports[2].getICAO());
@@ -82,8 +86,8 @@ TEST_CASE("Test readfile_2", "[weight=10][part1]")
     REQUIRE("\"Baker Lake\"" == airports[1].getCity());
     REQUIRE(0 == airports[0].getID());
     REQUIRE(1 == airports[1].getID());
-    REQUIRE(airports[0].getLatitude() == 49.13249969482422);
-    REQUIRE(airports[1].getLongitude() == -96.077796936);
+    REQUIRE(compare_double((double)airports[0].getLatitude(), 49.13249969482422));
+    REQUIRE(compare_double((double)airports[1].getLongitude(), -96.077796936));
     REQUIRE("\"YBC\"" == airports[0].getIATA());
     REQUIRE("\"CYBK\"" == airports[1].getICAO());
 
@@ -124,7 +128,7 @@ TEST_CASE("Test readfile_3", "[weight=10][part1]")
     REQUIRE(0 == airports[0].getID());
     REQUIRE(1 == airports[1].getID());
     REQUIRE(2 == airports[2].getID());
-    REQUIRE(airports[0].getLatitude() == 68.534401);
+    REQUIRE(compare_double((double)airports[0].getLatitude(), 68.534401));
     REQUIRE(airports[1].getLongitude() == -70.99639892578125);
     REQUIRE("\"YBB\"" == airports[0].getIATA());
     REQUIRE("\"CYBK\"" == airports[2].getICAO());
